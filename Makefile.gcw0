@@ -18,9 +18,19 @@
 #   You should have received a copy of the GNU General Public License
 #   along with Meritous.  If not, see <http://www.gnu.org/licenses/>.
 #
-LDFLAGS = `sdl-config --libs` -lSDL_image -lSDL_mixer -lz -lm
-CCFLAGS = -O2 -ggdb -Wall `sdl-config --cflags` -g -DWITH_HOME_DIR
-#
+
+CC		:= /opt/gcw0-toolchain/usr/bin/mipsel-linux-gcc
+STRIP		:= /opt/gcw0-toolchain/usr/bin/mipsel-linux-strip
+SYSROOT		:= $(shell $(CC) --print-sysroot)
+CFLAGS		:= $(shell $(SYSROOT)/usr/bin/sdl-config --cflags) -Wall -g -DWITH_HOME_DIR
+LDFLAGS		:= $(shell $(SYSROOT)/usr/bin/sdl-config --libs) -lSDL_image -lSDL_mixer -lz -lm
+
+ifdef DEBUG
+	CFLAGS	+= -ggdb
+else
+	CFLAGS	+= -O2
+endif
+
 OBJS = 	src/levelblit.o \
 		src/mapgen.o \
 		src/demon.o \
@@ -35,11 +45,13 @@ OBJS = 	src/levelblit.o \
 default:	meritous
 
 %.o:		%.c
-		gcc -c -o $@ $? ${CCFLAGS}
+		${CC} -c -o $@ $? ${CFLAGS}
 
 meritous:	${OBJS}
-		gcc -o $@ $+ ${LDFLAGS}
+		${CC} -o $@ $+ ${LDFLAGS}
+ifndef DEBUG
+		${STRIP} $@
+endif
 
 clean:		
-		rm ${OBJS}
-
+		rm -f ${OBJS}

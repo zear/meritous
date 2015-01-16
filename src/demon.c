@@ -2563,7 +2563,7 @@ void CurseSingleEnemy(struct enemy *e)
 		}
 	}
 
-	rm = ActiveRooms[rand()%NActiveRooms];
+	rm = ActiveRooms[(NActiveRooms ? rand()%NActiveRooms : 0)];
 	while ((rooms[rm].enemies > 3) || (rooms[rm].visited == 0)) {
 		rm = ActiveRooms[rand()%NActiveRooms];
 	}

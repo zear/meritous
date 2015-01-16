@@ -158,7 +158,7 @@ void DisplayAutomap()
 	if (key_held[K_RT]) {
 		c_scroll_x += 32 + (key_held[K_SP]*64);
 	}
-	
+
 	if (c_scroll_x < 0) c_scroll_x = 0;
 	if (c_scroll_y < 0) c_scroll_y = 0;
 	if (c_scroll_x >= 512*32) c_scroll_x = 512*32 - 32;
@@ -206,7 +206,7 @@ void DisplayAutomap()
 	position.y = 32;
 	
 	SDL_BlitSurface(overview, &from, screen, &position);
-	
+
 	rx = (c_scroll_x / 32 - 27) * 200 / 512  + 437;
 	ry = (c_scroll_y / 32 - 27) * 200 / 512  + 32;
 	rw = 54 * 200 / 512;
@@ -226,22 +226,23 @@ void DisplayAutomap()
 	if (ry+rh >= 32 + 200 - 1) {
 		rh -= ((ry+rh) - (32 + 200 - 1));
 	}
-	
+
 	DrawRect(rx, ry, rw + 1, 1, 50);
 	DrawRect(rx, ry + rh, rw + 1, 1, 50);
 	DrawRect(rx, ry, 1, rh + 1, 50);
 	DrawRect(rx + rw, ry, 1, rh + 1, 50);
 	
-	DrawRect(2, 31, 432, 432, 255);
+	DrawRect(2, 31, SCREEN_W - 2, SCREEN_H - 31 - 16, 255);
 	t++;
-	for (y = 0; y < 54; y++) {
-		for (x = 0; x < 54; x++) {
+	for (y = 0; y < SCREEN_H/8 - 6; y++) {
+		for (x = 0; x < SCREEN_W/8; x++) {
 			xcol = 0;
 			df_x = x * 8 + 2;
 			df_y = y * 8 + 32;
 			
-			rx = c_scroll_x / 32 - 27 + x;
-			ry = c_scroll_y / 32 - 27 + y;
+			rx = c_scroll_x / 32 - SCREEN_W/16 + x;
+			ry = c_scroll_y / 32 - SCREEN_H/16 + y;
+
 			if ((rx >= 0)&&(ry >= 0)&&(rx < 512)&&(ry < 512)) {
 				if (rooms[GetRoom(rx, ry)].visited) {
 					tile = Get(rx, ry);
@@ -274,7 +275,7 @@ void DisplayAutomap()
 							break;
 						case 31:
 							DrawRect(df_x, df_y, 8, 8, 192 ^ xcol);
-							draw_char(df_x, df_y, 'S', 0 ^ xcol);
+							draw_char(df_x, df_y, 's', 0 ^ xcol);
 							break;
 						case 32:
 							DrawRect(df_x, df_y, 8, 8, 192 ^ xcol);
@@ -331,12 +332,19 @@ void DisplayAutomap()
 	// |            |     |
 	// |            |     |
 	// +-------2----+-----+
-	
+	/*
 	DrawRect(0, 29, 640, 3, 230); 	// 1
 	DrawRect(0, 464, 640, 4, 230); 	// 2
 	DrawRect(0, 29, 2, 437, 230); 	// 3
 	DrawRect(434, 29, 3, 437, 230); 	// 4
 	DrawRect(637, 29, 3, 437, 230); 	// 5
 	DrawRect(437, 232, 200, 3, 230); 	// 6
+	*/
+	DrawRect(0, 29, SCREEN_W, 3, 230);			// 1
+	DrawRect(0, SCREEN_H - 16, SCREEN_W, 4, 230);		// 2
+	DrawRect(0, 29, 2, SCREEN_H - 29 - 16, 230);		// 3
+	DrawRect(SCREEN_W - 2, 29, 3, SCREEN_H - 29 - 16, 230);	// 4
+	//DrawRect(637, 29, 3, 437, 230); 			// 5
+	//DrawRect(437, 232, 200, 3, 230); 			// 6
 	
 }

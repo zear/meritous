@@ -34,9 +34,9 @@
 #include "audio.h"
 
 char *boss_names[] = {	"MERIDIAN",
-						"ATARAXIA",
-						"MERODACH",
-						"WERVYN ANIXIL" };
+			"ATARAXIA",
+			"MERODACH",
+			"WERVYN ANIXIL" };
 
 int boss_fight_mode = 0;
 // 0 - no boss fight
@@ -491,7 +491,7 @@ void DrawPowerObject()
 	off_v = 48;
 	
 	p_x = (rooms[player_room].w * 32 / 2 - 16) + rooms[player_room].x * 32;
-	
+
 	if (!game_paused) {
 		if ((rooms[player_room].room_type == 5) || (rooms[player_room].room_type == 6)) {
 			if (CanGetArtifact()) {
@@ -502,9 +502,7 @@ void DrawPowerObject()
 						off_v = 48 - (collect * 48 / 100);
 						hover_v = 16 - (collect * 16 / 100);
 						
-						//DrawCircle(p_x + 16 - scroll_x, player_y - 48 - scroll_y, collect * 4 + 1, rand()%192+64);
 						DrawCircle(player_x + PLAYERW/2 - scroll_x, player_y + PLAYERH/2- scroll_y, (100-collect) * 4 + 1, rand()%192+64);
-						
 						collect++;
 						if (collect == 1) {
 							SND_Pos("dat/a/crystal2.wav", 100, 0);
@@ -525,7 +523,6 @@ void DrawPowerObject()
 			}
 		}
 	}
-	
 	p_y = (rooms[player_room].h * 32 / 2 - 16) + rooms[player_room].y * 32 - off_v + sin((float)tick / 20.0)*hover_v;
 	
 	from.x = (8 + p_obj) * 32;
@@ -539,16 +536,19 @@ void DrawPowerObject()
 	if (killed_enemies >= required_enemies) {
 		DrawCircle(p_x + 16 - scroll_x, p_y + 16 - scroll_y, 34+rand()%5 + collect * 4 + 1, rand()%128+128);
 	}
-	SDL_BlitSurface(artifact_spr, &from, screen, &to);
-	
+	SDL_BlitSurface(artifact_spr_large, &from, screen, &to);
 	//printf("Required: %d   Killed %d   Value: %d\n", required_enemies, killed_enemies, (int)(sqrt((required_enemies - killed_enemies)/4)+5));
-	for (i = 0; i < (int)(sqrt((required_enemies - killed_enemies))+5); i++) {
-		ddir = (float)(rand()%256) * M_PI * 2 / 256;
-		dmag = rand()%20;
-		dx = p_x + 16 + cos(ddir)*dmag;
-		dy = p_y + 16 + sin(ddir)*dmag;
-		DrawCircle(dx - scroll_x, dy - scroll_y, rand()%5+1, 0);
-		DrawCircle(dx - scroll_x, dy - scroll_y, rand()%3+1, 64);
+
+	if(required_enemies - killed_enemies > 0)
+	{
+		for (i = 0; i < (int)(sqrt((required_enemies - killed_enemies))+5); i++) { // !! Converting a sqrt from a negative number (-nan) to int is evil as it gives different results on different cpu architectures!
+			ddir = (float)(rand()%256) * M_PI * 2 / 256;
+			dmag = rand()%20;
+			dx = p_x + 16 + cos(ddir)*dmag;
+			dy = p_y + 16 + sin(ddir)*dmag;
+			DrawCircle(dx - scroll_x, dy - scroll_y, rand()%5+1, 0);
+			DrawCircle(dx - scroll_x, dy - scroll_y, rand()%3+1, 64);
+		}
 	}
 	
 	tick++;
@@ -567,17 +567,18 @@ void DrawBossHP(int bar_length)
 		boss_hp_icon = IMG_Load("dat/i/boss_icon.png");
 	}
 	SDL_BlitSurface(boss_hp_icon, NULL, screen, &to);
-	DrawRect(16, 28, 624, 17, 0);
-	DrawRect(17, 29, 622, 15, 32);
-	DrawRect(18, 30, 620, 13, 64);
+	DrawRect(16, 28, SCREEN_W - 16, 17, 0);
+	DrawRect(17, 29, SCREEN_W - 18, 15, 32);
+	DrawRect(18, 30, SCREEN_W - 20, 13, 64);
 	
 	draw_col = 128 + (boss_hp * 127 / 1000);
+
 	if (bar_length < 100) {
-		draw_amt = bar_length * 614 / 100;
+		draw_amt = bar_length * (SCREEN_W - 38) / 100;
 	} else {
-		draw_amt = boss_hp * 614 / 1000;
+		draw_amt = boss_hp * (SCREEN_W - 38) / 1000;
 	}
-	
+
 	DrawRect(20, 32, draw_amt+2, 9, draw_col * 2 / 3);
 	DrawRect(21, 33, draw_amt, 7, draw_col);
 	
@@ -672,6 +673,7 @@ void DrawBoss()
 	
 	flash_coeff = (boss_flash > 0)&&((boss_flash/3) % 2) ? 255 : 0;
 	if (boss_flash > 0) boss_flash--;
+
 	switch (current_boss) {
 		case 0: {
 			static SDL_Surface *boss_spr = NULL;
@@ -691,7 +693,7 @@ void DrawBoss()
 			} else {
 				if (dist(tail_x[0], tail_y[0], boss_x, boss_y) >= 24) {
 					if (boss_tail_len < 10) boss_tail_len++;
-					for (i = 9; i >= 0; i--) {
+					for (i = 8; i >= 0; i--) {
 						tail_x[i+1] = tail_x[i];
 						tail_y[i+1] = tail_y[i];
 					}
@@ -835,7 +837,7 @@ void DrawBoss()
 						
 				while (dist(mx, my, boss_m_hx[i], boss_m_hy[i]) > 12) {
 					md = CHDir(md, PDir(mx, my, boss_m_hx[i], boss_m_hy[i]), 0.5);
-					//md = PDir(mx, my, boss_m_hx[i], boss_m_hy[i]);
+					md = PDir(mx, my, boss_m_hx[i], boss_m_hy[i]);
 					mx += cos(md) * 12;
 					my += sin(md) * 12;
 					drawfrom.x = 32;
@@ -1050,7 +1052,7 @@ void BC_BossCombat()
 			int mx, my;
 			int check_pass;
 			float hd2;
-			
+
 			heads = 5 - boss_lives;
 			h_dist = M_PI * 2 / heads;
 			
@@ -1753,11 +1755,17 @@ void DrawArtifactOverhead(int p_obj)
 	
 	p_x = player_x - 8;
 	p_y = player_y - 36 + sin((float)tick / 20.0)*4;
-	
+
+/*	
 	from.x = (8 + p_obj) * 32;
 	from.y = 0;
 	from.w = 32;
 	from.h = 32;
+*/
+	from.x = (8 + p_obj) * 16;
+	from.y = 0;
+	from.w = 16;
+	from.h = 16;
 	
 	to.x = p_x - scroll_x;
 	to.y = p_y - scroll_y;

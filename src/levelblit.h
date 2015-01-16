@@ -27,6 +27,13 @@
 #define PLAYERW 16
 #define PLAYERH 24
 
+#define SCREEN_W 320
+#define SCREEN_H 240
+
+#define JOY_DEADZONE 1000
+
+extern SDL_Joystick *joy;
+
 extern SDL_Surface *screen;
 
 extern int player_x, player_y;
@@ -79,6 +86,7 @@ float RandomDir();
 void Arc(SDL_Surface *s, int x, int y, int r, float dir);
 
 extern SDL_Surface *artifact_spr;
+extern SDL_Surface *artifact_spr_large;
 
 void VideoUpdate();
 void EndCycle(int n);

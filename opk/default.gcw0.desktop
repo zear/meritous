@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Meritous
+Comment=An action-adventure dungeon crawl game
+Exec=meritous.elf
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=meritous
+Categories=games;

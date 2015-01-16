@@ -24,6 +24,9 @@
 #ifndef SAVE_H
 #define SAVE_H
 
+void getHomeDir();
+void freeHomeDir();
+
 void DoSaveGame();
 
 void FWInt(int val);

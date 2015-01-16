@@ -31,11 +31,44 @@
 #include "demon.h"
 #include "tiles.h"
 
+#if defined(WITH_HOME_DIR)
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#endif
+
+char *homeDir = NULL;
+
 gzFile Filefp;
 int game_load = 0;
 
 unsigned char lchar;
 int fpos = 0;
+
+void getHomeDir()
+{
+#if defined(WITH_HOME_DIR)
+	if(homeDir != NULL)
+	{
+		free(homeDir);
+		homeDir = NULL;
+	}
+
+	homeDir = (char *)malloc(strlen(getenv("HOME")) + strlen("/.meritous") + 1);
+	strcpy(homeDir, getenv("HOME"));
+	strcat(homeDir, "/.meritous");
+	mkdir(homeDir, 0755); // create $HOME/.meritous if it doesn't exist
+#endif
+}
+
+void freeHomeDir()
+{
+	if(homeDir != NULL)
+	{
+		free(homeDir);
+		homeDir == NULL;
+	}
+}
 
 void FWChar(unsigned char i)
 {
@@ -137,8 +170,22 @@ void LoadGame(char *filename)
 	unsigned char parity;
 	fpos = 0;
 	lchar = 0x7c;
+#if defined(WITH_HOME_DIR)
+	char filePath[50];
 
+	if(homeDir == NULL)
+	{
+		getHomeDir();
+	}
+
+	strcpy(filePath, homeDir);
+	strcat(filePath, "/");
+	strcat(filePath, filename);
+	Filefp = gzopen(filePath, "rb");
+
+#else
 	Filefp = gzopen(filename, "rb");
+#endif
 	parity = FRChar();
 	if (parity != 0x7C) {
 		fprintf(stderr, "Parity byte in error (%x != 0x7C)\nAborting\n", parity);
@@ -154,16 +201,47 @@ void CloseFile()
 
 void DoSaveGame()
 {
+#if defined(WITH_HOME_DIR)
+	char filePath[50];
+
+	if(homeDir == NULL)
+	{
+		getHomeDir();
+	}
+
+	strcpy(filePath, homeDir);
+	strcat(filePath, "/SaveFile.sav");
+	SavingScreen(0, 0.0);
+	SaveGame(filePath);
+#else
 	SavingScreen(0, 0.0);
 	SaveGame("SaveFile.sav");
+#endif
 }
 
 int IsSaveFile()
 {
 	FILE *fp;
+#if defined(WITH_HOME_DIR)
+	char filePath[50];
+
+	if(homeDir == NULL)
+	{
+		getHomeDir();
+	}
+
+	strcpy(filePath, homeDir);
+	strcat(filePath, "/SaveFile.sav");
+
+	if ((fp = fopen(filePath, "rb")) != NULL) {
+		fclose(fp);
+		return 1;
+	}
+#else
 	if ((fp = fopen("SaveFile.sav", "rb")) != NULL) {
 		fclose(fp);
 		return 1;
 	}
+#endif
 	return 0;
 }
