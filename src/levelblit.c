@@ -689,12 +689,11 @@ void ProgressBarScreen(int part, float progress, char *message, float t_parts)
 
 void LoadingScreen(int part, float progress)
 {
-	float t_parts;
-	
-	if (game_load) t_parts = 5.0;
-	else t_parts = 3.0;
-	
-	ProgressBarScreen(part, progress, "Loading... please wait", t_parts);
+	if (game_load) {
+		ProgressBarScreen(part, progress, "Loading... please wait", 5.0);
+	} else {
+		ProgressBarScreen(part, progress, "Generating new dungeon", 3.0);
+	}
 	ClearInput();
 }
 
