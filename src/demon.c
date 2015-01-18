@@ -309,8 +309,8 @@ void AddEnemyPos(struct enemy *e)
 void WriteEnemyData()
 {
 	struct enemy *ptr;
-	int n = 0;
-	int i = 0;
+	int i = 0, n = 0;
+	Uint32 last_ticks = SDL_GetTicks(), cur_ticks;
 
 	ptr = enemy_stack;
 	while (ptr != NULL) {
@@ -326,8 +326,9 @@ void WriteEnemyData()
 			FWInt(ptr->room);
 			FWInt(ptr->enemy_type);
 			i++;
-			if (i % 100 == 99) {
+			if ((cur_ticks = SDL_GetTicks()) >= last_ticks + PROGRESS_DELAY_MS) {
 				SavingScreen(2, (float)i / (float)n);
+				last_ticks = cur_ticks;
 			}
 		}
 		ptr = ptr->next;
@@ -337,8 +338,8 @@ void WriteEnemyData()
 void WriteGemData()
 {
 	struct diamond *ptr;
-	int n = 0;
-	int i = 0;
+	int i = 0, n = 0;
+	Uint32 last_ticks = SDL_GetTicks(), cur_ticks;
 
 	ptr = gem_stack;
 	while (ptr != NULL) {
@@ -355,8 +356,9 @@ void WriteGemData()
 			FWInt(ptr->value);
 			
 			i++;
-			if (i % 100 == 99) {
+			if ((cur_ticks = SDL_GetTicks()) >= last_ticks + PROGRESS_DELAY_MS) {
 				SavingScreen(3, (float)i / (float)n);
+				last_ticks = cur_ticks;
 			}
 		}
 		ptr = ptr->next;
@@ -376,6 +378,7 @@ void ReadEnemyData()
 {
 	int i, n;
 	int x, y, room, t;
+	Uint32 last_ticks = SDL_GetTicks(), cur_ticks;
 
 	n = FRInt();
 	
@@ -387,8 +390,9 @@ void ReadEnemyData()
 		CreateEnemyEx(x, y, room, t);
 		total_enemies--;
 		
-		if (i % 100 == 99) {
+		if ((cur_ticks = SDL_GetTicks()) >= last_ticks + PROGRESS_DELAY_MS) {
 			LoadingScreen(2, (float)i / (float)n);
+			last_ticks = cur_ticks;
 		}
 	}
 	LoadingScreen(2, 1);
@@ -398,6 +402,7 @@ void ReadGemData()
 {
 	int i, n;
 	int x, y, room, value;
+	Uint32 last_ticks = SDL_GetTicks(), cur_ticks;
 
 	n = FRInt();
 	
@@ -408,8 +413,9 @@ void ReadGemData()
 		value = FRInt();
 		SCreateGem(x, y, room, value);
 		
-		if (i % 100 == 99) {
+		if ((cur_ticks = SDL_GetTicks()) >= last_ticks + PROGRESS_DELAY_MS) {
 			LoadingScreen(3, (float)i / (float)n);
+			last_ticks = cur_ticks;
 		}
 	}
 	LoadingScreen(3, 1);
@@ -418,14 +424,15 @@ void ReadGemData()
 void ActivateVisited()
 {
 	int i;
-
+	Uint32 last_ticks = SDL_GetTicks(), cur_ticks;
 
 	for (i = 0; i < 3000; i++) {
 		if (rooms[i].visited) {
 			ActivateEnemies(i);
 		}
-		if (i % 10 == 9) {
+		if ((cur_ticks = SDL_GetTicks()) >= last_ticks + 50) {
 			LoadingScreen(4, (float)i / 3000.0);
+			last_ticks = cur_ticks;
 		}
 	}
 	LoadingScreen(4, 1);

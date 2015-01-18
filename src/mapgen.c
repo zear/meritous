@@ -150,6 +150,7 @@ void ReadRoomData(Room *rm)
 void WriteMapData()
 {
 	int i;
+	Uint32 last_ticks = SDL_GetTicks(), cur_ticks;
 
 	FWInt(map.w);
 	FWInt(map.h);
@@ -158,14 +159,16 @@ void WriteMapData()
 	for (i = 0; i < map.w*map.h; i++) {
 		FWChar(map.m[i]);
 		FWInt(map.r[i]);
-		if ((i % 7447) == 7446) {
+		if ((cur_ticks = SDL_GetTicks()) >= last_ticks + PROGRESS_DELAY_MS) {
 			SavingScreen(0, (float)i / (float)(map.w*map.h));
+			last_ticks = cur_ticks;
 		}
 	}
 	for (i = 0; i < map.totalRooms; i++) {
 		WriteRoomData(&rooms[i]);
-		if ((i % 85)==84) {
+		if ((cur_ticks = SDL_GetTicks()) >= last_ticks + PROGRESS_DELAY_MS) {
 			SavingScreen(1, (float)i / (float)map.totalRooms);
+			last_ticks = cur_ticks;
 		}
 	}
 }
@@ -173,14 +176,16 @@ void WriteMapData()
 void ReadMapData()
 {
 	int i;
+	Uint32 last_ticks = SDL_GetTicks(), cur_ticks;
 
 	map.w = FRInt();
 	map.h = FRInt();
 	map.totalRooms = total_rooms = FRInt();
 	place_of_power = FRInt();
 	for (i = 0; i < map.w*map.h; i++) {
-		if ((i % 7447) == 7446) {
+		if ((cur_ticks = SDL_GetTicks()) >= last_ticks + PROGRESS_DELAY_MS) {
 			LoadingScreen(0, (float)i / (float)(map.w*map.h));
+			last_ticks = cur_ticks;
 		}
 		map.m[i] = FRChar();
 		map.r[i] = FRInt();
@@ -188,8 +193,9 @@ void ReadMapData()
 	LoadingScreen(0, 1);
 	for (i = 0; i < map.totalRooms; i++) {
 		ReadRoomData(&rooms[i]);
-		if ((i % 85)==84) {
+		if ((cur_ticks = SDL_GetTicks()) >= last_ticks + PROGRESS_DELAY_MS) {
 			LoadingScreen(1, (float)i / (float)map.totalRooms);
+			last_ticks = cur_ticks;
 		}
 	}
 	LoadingScreen(1, 1);

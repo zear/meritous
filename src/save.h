@@ -24,6 +24,8 @@
 #ifndef SAVE_H
 #define SAVE_H
 
+#define PROGRESS_DELAY_MS 50
+
 void getHomeDir();
 void freeHomeDir();
 
