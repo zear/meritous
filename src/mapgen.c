@@ -931,14 +931,16 @@ int Generate()
 	int i;
 	int correct_dist = 0;
 	int maxdist = 0;
+	Uint32 last_ticks = SDL_GetTicks(), cur_ticks;
 	rdir = rand()%4;
 	NewRoom(map.w / 2 - 20 / 2, map.h / 2 - 15 / 2, 20, 15, -1);
 	
 	for (attempts = 0; attempts < 100000; attempts++) {
         assert(map.w == 512);
 		AddChild(rndval(rndval(0, total_rooms-1), total_rooms-1));
-		if (total_rooms % 100 == 99) {
+		if ((cur_ticks = SDL_GetTicks()) >= last_ticks + PROGRESS_DELAY_MS) {
 			LoadingScreen(0, (float)total_rooms / 3000.0);
+			last_ticks = cur_ticks;
 		}
 		if (total_rooms == 3000) break;
 	}
