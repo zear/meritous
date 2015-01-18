@@ -69,53 +69,63 @@ void freeHomeDir()
 	}
 }
 
+static inline unsigned char EChar(unsigned char c)
+{
+	return c ^ 0x55 ^ (fpos & 0xFF);
+}
+
+#define DChar EChar
+
 void FWChar(unsigned char i)
 {
-	unsigned char c;
-	c = i;
-	c ^= 0x55;
-	c ^= fpos & 0xFF;
+	gzputc(Filefp, EChar(i));
 	fpos++;
-	gzputc(Filefp, c);
 }
 
 unsigned char FRChar()
 {
-	unsigned char c;
-	c = gzgetc(Filefp);
-	c ^= 0x55;
-	c ^= fpos & 0xFF;
-
+	unsigned char c = DChar(gzgetc(Filefp));
 	fpos++;
 	return c;
 }
 
 void FWInt(int val)
 {
-	int i, s;
-	i = abs(val);
-	s = (val >= 0) ? 0 : 1;
+	unsigned char data[5];
+	size_t i;
 
-	FWChar((i & 0xFF) >> 0);
-	FWChar((i & 0xFF00) >> 8);
-	FWChar((i & 0xFF0000) >> 16);
-	FWChar((i & 0xFF000000) >> 24);
+	data[4] = val < 0;
+	if (val < 0) val = -val;
 
-	FWChar(s);
+	for (i = 0; i < 4; i++) {
+		data[i] = val & 0xFF;
+		val >>= 8;
+	}
+
+	for (i = 0; i < sizeof(data); i++) {
+		data[i] = EChar(data[i]);
+		fpos++;
+	}
+	gzwrite(Filefp, data, sizeof(data));
 }
 
 int FRInt()
 {
-	int val;
-	int i, s;
+	int val = 0;
+	unsigned char data[5];
+	size_t i;
 
-	i = FRChar();
-	i |= FRChar() << 8;
-	i |= FRChar() << 16;
-	i |= FRChar() << 24;
-	s = FRChar();
-	val = i * (s?-1:1);
+	gzread(Filefp, data, sizeof(data));
+	for (i = 0; i < sizeof(data); i++) {
+		data[i] = DChar(data[i]);
+		fpos++;
+	}
 
+	for (i = 0; i < 4; i++) {
+		val |= data[i] << (i * 8);
+	}
+
+	if (data[4] != 0) val = -val;
 	return val;
 }
 
