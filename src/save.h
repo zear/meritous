@@ -33,8 +33,6 @@ void DoSaveGame();
 
 void FWInt(int val);
 void FWChar(unsigned char i);
-void FWFloat(float i);
-float FRFloat();
 unsigned char FRChar();
 int FRInt();
 

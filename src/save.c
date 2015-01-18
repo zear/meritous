@@ -42,7 +42,6 @@ char *homeDir = NULL;
 gzFile Filefp;
 int game_load = 0;
 
-unsigned char lchar;
 int fpos = 0;
 
 void getHomeDir()
@@ -76,7 +75,6 @@ void FWChar(unsigned char i)
 	c = i;
 	c ^= 0x55;
 	c ^= fpos & 0xFF;
-	lchar = c;
 	fpos++;
 	gzputc(Filefp, c);
 }
@@ -88,7 +86,6 @@ unsigned char FRChar()
 	c ^= 0x55;
 	c ^= fpos & 0xFF;
 
-	lchar = c;
 	fpos++;
 	return c;
 }
@@ -107,18 +104,6 @@ void FWInt(int val)
 	FWChar(s);
 }
 
-void FWFloat(float i)
-{
-	int num;
-	int frac;
-
-	num = (int)(floorf(i));
-	FWInt(num);
-	frac = (int)((i - (float)num)*2147483647.0);
-
-	FWInt(frac);
-}
-
 int FRInt()
 {
 	int val;
@@ -134,26 +119,8 @@ int FRInt()
 	return val;
 }
 
-float FRFloat()
-{
-	float i;
-	int num;
-	int frac;
-
-	double f_frac;
-
-	num = FRInt();
-	frac = FRInt();
-
-	f_frac = (double)frac / 2147483647.0;
-
-	i = (float)num + (float)f_frac;
-	return i;
-}
-
 void SaveGame(char *filename)
 {
-	lchar = 0x7c;
 	fpos = 0;
 
 	Filefp = gzopen(filename, "wb9");
@@ -169,7 +136,6 @@ void LoadGame(char *filename)
 {
 	unsigned char parity;
 	fpos = 0;
-	lchar = 0x7c;
 #if defined(WITH_HOME_DIR)
 	char filePath[50];
 
