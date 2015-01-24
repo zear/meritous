@@ -134,7 +134,7 @@ int FRInt()
 
 void SaveGame(char *filename)
 {
-	Filefp = gzopen(filename, "wb9");
+	Filefp = gzopen(filename, "wb4");
 	FWChar(0x7E);
 	WriteMapData();
 	WriteCreatureData();
