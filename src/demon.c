@@ -323,7 +323,6 @@ void WriteEnemyData()
 		if (!ptr->delete_me) {
 			FWInt(ptr->x);
 			FWInt(ptr->y);
-			FWInt(ptr->room);
 			FWInt(ptr->enemy_type);
 			i++;
 			if ((cur_ticks = SDL_GetTicks()) >= last_ticks + PROGRESS_DELAY_MS) {
@@ -352,7 +351,6 @@ void WriteGemData()
 		if (!ptr->delete_me) {
 			FWInt(ptr->x);
 			FWInt(ptr->y);
-			FWInt(ptr->room);
 			FWInt(ptr->value);
 			
 			i++;
@@ -385,7 +383,12 @@ void ReadEnemyData()
 	for (i = 0; i < n; i++) {
 		x = FRInt();
 		y = FRInt();
-		room = FRInt();
+		/* x and y are in pixels; map tiles are in units of 32x32 */
+		if (x < 0 || x >= map.w * 32 || y < 0 || y >= map.h * 32
+		 || (room = map.r[(y / 32) * map.w + (x / 32)]) == -1) {
+			fprintf(stderr, "An enemy in the save file is out of bounds\n");
+			exit(2);
+		}
 		t = FRInt();
 		CreateEnemyEx(x, y, room, t);
 		total_enemies--;
@@ -409,7 +412,12 @@ void ReadGemData()
 	for (i = 0; i < n; i++) {
 		x = FRInt();
 		y = FRInt();
-		room = FRInt();
+		/* x and y are in pixels; map tiles are in units of 32x32 */
+		if (x < 0 || x >= map.w * 32 || y < 0 || y >= map.h * 32
+		 || (room = map.r[(y / 32) * map.w + (x / 32)]) == -1) {
+			fprintf(stderr, "A PSI crystal in the save file is out of bounds\n");
+			exit(2);
+		}
 		value = FRInt();
 		SCreateGem(x, y, room, value);
 		

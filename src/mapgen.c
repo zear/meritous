@@ -89,6 +89,84 @@ int r_successes[4] = {0};
 
 unsigned char floortiles[4] = {12, 18, 19, 20};
 
+void WriteRoomConnectionData(Room* rm, struct RoomConnection* rc) {
+	if (rc->y == rm->y) {
+		FWChar(0); // At the top of the room
+		FWInt(rc->x - rm->x);
+	} else if (rc->y == rm->y + rm->h - 1) {
+		FWChar(1); // At the bottom of the room
+		FWInt(rc->x - rm->x);
+	} else if (rc->x == rm->x) {
+		FWChar(2); // At the left of the room
+		FWInt(rc->y - rm->y);
+	} else if (rc->x == rm->x + rm->w - 1) {
+		FWChar(3); // At the right of the room
+		FWInt(rc->y - rm->y);
+	}
+	FWInt(rc->c);
+}
+
+void ReadRoomConnectionData(Room* rm, int n, struct RoomConnection* rc) {
+	unsigned char direction = FRChar();
+	int offset = FRInt();
+
+	switch (direction) {
+	case 0:
+		if (offset <= 0 || offset >= rm->w - 1) {
+			fprintf(stderr, "Room #%d in the save file has a connection that is out of bounds\nAborting\n", n);
+			exit(2);
+		}
+		rc->x = rm->x + offset;
+		rc->y = rm->y;
+		rc->x2 = rc->x;
+		rc->y2 = rc->y - 1;
+		break;
+
+	case 1:
+		if (offset <= 0 || offset >= rm->w - 1) {
+			fprintf(stderr, "Room #%d in the save file has a connection that is out of bounds\nAborting\n", n);
+			exit(2);
+		}
+		rc->x = rm->x + offset;
+		rc->y = rm->y + rm->h - 1;
+		rc->x2 = rc->x;
+		rc->y2 = rc->y + 1;
+		break;
+
+	case 2:
+		if (offset <= 0 || offset >= rm->h - 1) {
+			fprintf(stderr, "Room #%d in the save file has a connection that is out of bounds\nAborting\n", n);
+			exit(2);
+		}
+		rc->x = rm->x;
+		rc->y = rm->y + offset;
+		rc->x2 = rc->x - 1;
+		rc->y2 = rc->y;
+		break;
+
+	case 3:
+		if (offset <= 0 || offset >= rm->h - 1) {
+			fprintf(stderr, "Room #%d in the save file has a connection that is out of bounds\nAborting\n", n);
+			exit(2);
+		}
+		rc->x = rm->x + rm->w - 1;
+		rc->y = rm->y + offset;
+		rc->x2 = rc->x + 1;
+		rc->y2 = rc->y;
+		break;
+
+	default:
+		fprintf(stderr, "Room #%d in the save file has a connection with a corrupt direction\nAborting\n", n);
+		exit(2);
+		break;
+	}
+	rc->c = FRInt();
+	if (rc->c < 0 || rc->c >= map.totalRooms) {
+		fprintf(stderr, "Room #%d in the save file has a connection to a room that doesn't exist\nAborting\n", n);
+		exit(2);
+	}
+}
+
 void WriteRoomData(Room *rm)
 {
 	struct RoomConnection *rt;
@@ -96,36 +174,53 @@ void WriteRoomData(Room *rm)
 	FWInt(rm->y);
 	FWInt(rm->w);
 	FWInt(rm->h);
-	FWInt(rm->creator);
-	FWInt(rm->visited);
-	FWInt(rm->checkpoint);
+	FWChar((rm->visited & 1) | ((rm->checkpoint & 1) << 1));
 	FWInt(rm->s_dist);
 	FWInt(rm->connections);
 	FWInt(rm->room_type);
 	FWInt(rm->room_param);
 	rt = rm->con;
 	while (rt != NULL) {
-		FWInt(rt->x);
-		FWInt(rt->y);
-		FWInt(rt->x2);
-		FWInt(rt->y2);
-		FWInt(rt->c);
+		WriteRoomConnectionData(rm, rt);
 		rt = rt->n;
 	}
 }
 
-void ReadRoomData(Room *rm)
+void ReadRoomData(Room *rm, int n)
 {
-	int i;
+	int i, x, y;
+	unsigned char data;
 	struct RoomConnection *rt;
 	
 	rm->x = FRInt();
 	rm->y = FRInt();
 	rm->w = FRInt();
 	rm->h = FRInt();
-	rm->creator = FRInt();
-	rm->visited = FRInt();
-	rm->checkpoint = FRInt();
+
+	if (rm->x < 0 || rm->x >= map.w || rm->y < 0 || rm->y >= map.h
+	 || rm->w < 0 || rm->w >= map.w || rm->h < 0 || rm->h >= map.h
+	 || rm->x + rm->w > map.w || rm->y + rm->h > map.h) {
+		fprintf(stderr, "Room #%d in the save file is out of bounds\nAborting\n", n);
+		exit(2);
+	}
+
+	for (y = rm->y; y < rm->y + rm->h; y++) {
+		for (x = rm->x; x < rm->x + rm->w; x++) {
+			if (map.r[y * map.w + x] != -1) {
+				fprintf(stderr, "Rooms #%d and #%d in the save file overlap with each other\nAborting\n", map.r[y * map.w + x], n);
+				exit(2);
+			}
+			map.r[y * map.w + x] = n;
+		}
+	}
+
+	data = FRChar();
+	if (data & ~0x3) {
+		fprintf(stderr, "Room #%d in the save file has reserved flags set\nAborting\n", n);
+		exit(2);
+	}
+	rm->visited = data & 1;
+	rm->checkpoint = (data >> 1) & 1;
 	rm->s_dist = FRInt();
 	rm->connections = FRInt();
 	rm->room_type = FRInt();
@@ -138,11 +233,7 @@ void ReadRoomData(Room *rm)
 	for (i = 0; i < rm->connections; i++) {
 		rt = rm->con;
 		rm->con = malloc(sizeof(struct RoomConnection));
-		rm->con->x = FRInt();
-		rm->con->y = FRInt();
-		rm->con->x2 = FRInt();
-		rm->con->y2 = FRInt();
-		rm->con->c = FRInt();
+		ReadRoomConnectionData(rm, n, rm->con);
 		rm->con->n = rt;
 	}
 }
@@ -152,13 +243,9 @@ void WriteMapData()
 	int i;
 	Uint32 last_ticks = SDL_GetTicks(), cur_ticks;
 
-	FWInt(map.w);
-	FWInt(map.h);
-	FWInt(map.totalRooms);
 	FWInt(place_of_power);
 	for (i = 0; i < map.w*map.h; i++) {
 		FWChar(map.m[i]);
-		FWInt(map.r[i]);
 		if ((cur_ticks = SDL_GetTicks()) >= last_ticks + PROGRESS_DELAY_MS) {
 			SavingScreen(0, (float)i / (float)(map.w*map.h));
 			last_ticks = cur_ticks;
@@ -178,21 +265,22 @@ void ReadMapData()
 	int i;
 	Uint32 last_ticks = SDL_GetTicks(), cur_ticks;
 
-	map.w = FRInt();
-	map.h = FRInt();
-	map.totalRooms = total_rooms = FRInt();
+	map.totalRooms = total_rooms = 3000;
 	place_of_power = FRInt();
+	if (place_of_power < 0 || place_of_power >= map.totalRooms) {
+		fprintf(stderr, "The Place of Power in the save file refers to a room that doesn't exist\nAborting\n");
+		exit(2);
+	}
 	for (i = 0; i < map.w*map.h; i++) {
 		if ((cur_ticks = SDL_GetTicks()) >= last_ticks + PROGRESS_DELAY_MS) {
 			LoadingScreen(0, (float)i / (float)(map.w*map.h));
 			last_ticks = cur_ticks;
 		}
 		map.m[i] = FRChar();
-		map.r[i] = FRInt();
 	}
 	LoadingScreen(0, 1);
 	for (i = 0; i < map.totalRooms; i++) {
-		ReadRoomData(&rooms[i]);
+		ReadRoomData(&rooms[i], i);
 		if ((cur_ticks = SDL_GetTicks()) >= last_ticks + PROGRESS_DELAY_MS) {
 			LoadingScreen(1, (float)i / (float)map.totalRooms);
 			last_ticks = cur_ticks;

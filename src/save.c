@@ -135,7 +135,7 @@ int FRInt()
 void SaveGame(char *filename)
 {
 	Filefp = gzopen(filename, "wb9");
-	FWChar(0x7D);
+	FWChar(0x7E);
 	WriteMapData();
 	WriteCreatureData();
 	WritePlayerData();
@@ -163,8 +163,8 @@ void LoadGame(char *filename)
 	Filefp = gzopen(filename, "rb");
 #endif
 	parity = FRChar();
-	if (parity != 0x7D) {
-		fprintf(stderr, "Parity byte in error (%x != 0x7D)\nAborting\n", parity);
+	if (parity != 0x7E) {
+		fprintf(stderr, "Parity byte in error (%x != 0x7E)\nAborting\n", parity);
 		exit(2);
 	}
 	game_load = 1;
