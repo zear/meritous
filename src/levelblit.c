@@ -1549,7 +1549,7 @@ void DrawLevel(int off_x, int off_y, int hide_not_visited, int fog_of_war)
 		}
 	}
 
-	for (y = 0; y < SCREEN_H/32 + 1; y++) {
+	for (y = 0; y < SCREEN_H/32 + 2; y++) {
 		for (x = 0; x < SCREEN_W/32 + 1; x++) {
 			resolve_x = x + (off_x/32);
 			resolve_y = y + (off_y/32);
