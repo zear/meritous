@@ -234,6 +234,7 @@ void SetTitlePalette(int curve_start, int curve_end);
 void SetTitlePalette2(int t);
 int TouchTile(int ix, int iy);
 void SpecialTile(int x, int y);
+void DrawBorder(int len, int lines);
 void DrawRect(int x, int y, int w, int h, unsigned char c);
 
 void DrawCircleEx(int x, int y, int r, int r2, unsigned char c);
@@ -1965,6 +1966,22 @@ void ActivateRoom(int room)
 	ActivateEnemies(room);
 }
 
+void DrawBorder(int len, int lines)
+{
+	int x = SCREEN_W/2 - len*8 / 2;
+	int y = SCREEN_H/5;
+	int w = len*8;
+
+	lines = lines * 10;
+	// Keep the border within the screen area.
+	x = (x < 20 ? 20 : x);
+	w = (w > SCREEN_W - 40 ? SCREEN_W - 40 : w);
+
+	DrawRect(x - 20, y - 20, w + 40, 38 + lines, 200);
+	DrawRect(x - 15, y - 15, w + 30, 28 + lines, 32);
+	DrawRect(x - 10, y - 10, w + 20, 18 + lines, 64);
+}
+
 void DrawRect(int x, int y, int w, int h, unsigned char c)
 {
 	SDL_Rect r;
@@ -2603,18 +2620,7 @@ void SpecialTile(int x, int y)
 	
 	if (message[0] == 0) return;
 
-	if(!strlen(message2))
-	{
-		DrawRect(SCREEN_W/2 - strlen(message)*8 / 2 - 20, SCREEN_H/5 - 20, strlen(message)*8+40, 48, 200);
-		DrawRect(SCREEN_W/2 - strlen(message)*8 / 2 - 15, SCREEN_H/5 - 15, strlen(message)*8+30, 38, 32);
-		DrawRect(SCREEN_W/2 - strlen(message)*8 / 2 - 10, SCREEN_H/5 - 10, strlen(message)*8+20, 28, 64);
-	}
-	else
-	{
-		DrawRect(SCREEN_W/2 - strlen(message)*8 / 2 - 20, SCREEN_H/5 - 20, strlen(message)*8+40, 58, 200);
-		DrawRect(SCREEN_W/2 - strlen(message)*8 / 2 - 15, SCREEN_H/5 - 15, strlen(message)*8+30, 48, 32);
-		DrawRect(SCREEN_W/2 - strlen(message)*8 / 2 - 10, SCREEN_H/5 - 10, strlen(message)*8+20, 38, 64);
-	}
+	DrawBorder(strlen(message), (!strlen(message2) ? 1 : 2));
 
 	draw_text(SCREEN_W/2 - strlen(message)*8 / 2, SCREEN_H/5, message, t%16<8 ? 255 : 192);
 	draw_text(SCREEN_W/2 - strlen(message2)*8 / 2, SCREEN_H/5 + 10, message2, t%16<8 ? 255 : 192);
