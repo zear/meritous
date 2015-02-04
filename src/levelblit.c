@@ -1884,12 +1884,45 @@ void draw_char(int cur_x, int cur_y, int c, Uint8 tcol)
 void draw_text(int x, int y, char *str, Uint8 tcol)
 {
 	int c, cur_x, cur_y;
-	
+	int i;
+	int charInLine;
+	int lastSpace = -1;
+	int lineLen = (SCREEN_W - x)/8 - 1;
+	char *str_cpy;
+
+	if (str == 0) {
+		return;
+	}
+
+	str_cpy = malloc(strlen(str)+1);
+
+	if (str_cpy == 0) {
+		return;
+	}
+
+	strcpy(str_cpy, str); // Make a copy of the string in case str is a const *char.
 	cur_x = x;
 	cur_y = y;
 
-	while (*str != 0) {
-		c = *(str++);
+	for (i = 0, charInLine = 0; str_cpy[i] != '\0'; ++i, ++charInLine) {
+		if (str_cpy[i] == ' ') {
+			lastSpace = i;
+		}
+		else if (str_cpy[i] == '\n') {
+			charInLine = -1;
+		}
+
+		if (charInLine > lineLen) {
+			if (lastSpace >= 0) {
+				str_cpy[lastSpace] = '\n';
+				lastSpace = -1;
+			}
+			charInLine = -1;
+		}
+	}
+
+	while (*str_cpy != 0) {
+		c = *(str_cpy++);
 		if (c == '\n') {
 			cur_x = x;
 			cur_y+=10;
