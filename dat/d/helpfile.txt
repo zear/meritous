@@ -376,7 +376,7 @@ the same way that it would normally.
      "Forest Boss"         Alexis Janson
      "Catacombs Boss"      Alexis Janson
      "Fear 2"              Mick Rippon
-     "The Final Battle"    Goose/CÈDA & iNVASiON
+     "The Final Battle"    Goose/C√©DA & iNVASiON
      "Ice Frontier"        Skaven/FC
      "KnarkLoader 1.0"     Rapacious
      "RPG-Battle"          Cyn
