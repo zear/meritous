@@ -56,13 +56,13 @@ void InitHelp()
 	char linebuf[80];
 	hlp = malloc(sizeof(struct help_file));
 	hlp->sections = 0;
-	
+
 	fp = fopen("dat/d/helpfile.txt", "r");
 	while (!feof(fp)) {
 		fgets(linebuf, 79, fp);
 		if (linebuf[strlen(linebuf)-1] == '\n')
 			linebuf[strlen(linebuf)-1] = 0;
-			
+
 		if (linebuf[0] == '\'') {
 			// comment
 			continue;
@@ -77,7 +77,7 @@ void InitHelp()
 			strcpy(current_sec->identifier, linebuf+1);
 			continue;
 		}
-		
+
 		// different line
 		if (current_sec != NULL) {
 			current_sec->l[current_sec->lines] = malloc(sizeof(struct help_line));
@@ -100,18 +100,18 @@ void DisplayHelp()
 	int line_num;
 	int follow_link = 0;
 	char linkfollow[20] = "";
-	
-	DrawRect(23, 23, 594, 434, 0);
-	DrawRect(24, 24, 592, 432, 200);
-	DrawRect(25, 25, 590, 430, 255);
-	DrawRect(26, 26, 588, 428, 200);
-	DrawRect(27, 27, 586, 426, 100);
-	DrawRect(30, 30, 580, 420, 20);
-	DrawRect(35, 35, 570, 410, 60);
-	
+
+	DrawRect(0, 0, SCREEN_W, SCREEN_H, 0);
+	DrawRect(1, 1, SCREEN_W - 2, SCREEN_H - 2, 200);
+	DrawRect(2, 2, SCREEN_W - 4, SCREEN_H - 4, 255);
+	DrawRect(3, 3, SCREEN_W - 6, SCREEN_H - 6, 200);
+	DrawRect(4, 4, SCREEN_W - 8, SCREEN_H - 8, 100);
+	DrawRect(7, 7, SCREEN_W - 14, SCREEN_H - 14, 20);
+	DrawRect(12, 12, SCREEN_W - 24, SCREEN_H - 24, 60);
+
 	// 70x40 display
 	current_sec = hlp->s[my_sec];
-	
+
 	my_line = my_cursor - 19;
 	if (my_line < 0) my_line = 0;
 	if (my_line >= (current_sec->lines)) my_line = current_sec->lines - 1;
@@ -119,22 +119,22 @@ void DisplayHelp()
 		draw_text(23+i, 40+(my_cursor - my_line)*10, "->", 255);
 		draw_text(599+i, 40+(my_cursor - my_line)*10, "<-", 255);
 	}
-	
+
 	for (i = 0; i < 40; i++) {
 		line_num = my_line + i;
 		if (line_num >= 0) {
 			if (line_num < current_sec->lines) {
 				ltext = current_sec->l[line_num]->t;
-				
+
 				switch (ltext[0]) {
 					case '!':
-					
+
 						draw_text(40 + (560-strlen(ltext+1)*8)/2, 40+i*10, ltext+1, 255);
 						break;
 					case '?':
 						strncpy(c_ident, ltext+1, strchr(ltext+1, '?')-ltext-1);
 						c_ident[strchr(ltext+1, '?')-ltext-1] = 0;
-						
+
 						draw_text(40, 40+i*10, strchr(ltext+1, '?')+1, my_cursor == line_num ? 200+(tick%16)*3 : 150);
 						if ((my_link == 1)&&(my_cursor == line_num)) {
 							follow_link = 1;
@@ -150,7 +150,7 @@ void DisplayHelp()
 	}
 	tick++;
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
-	
+
 	if (follow_link) {
 		for (i = 0; i < hlp->sections; i++) {
 			if (strcmp(linkfollow, hlp->s[i]->identifier) == 0) {
@@ -168,9 +168,9 @@ int MoveCursor()
 	SDL_Event ev;
 	static int key_delay = 0;
 	static int key_up = 0, key_down = 0;
-	
+
 	if (key_delay > 0) key_delay--;
-	
+
 	my_link = 0;
 	while (SDL_PollEvent(&ev)) {
 		if (ev.type == SDL_KEYDOWN) {
@@ -206,7 +206,7 @@ int MoveCursor()
 			return 0;
 		}
 	}
-	
+
 	if (key_delay == 0) {
 		if (key_up == 1) {
 			if (my_cursor > 0) my_cursor--;
@@ -215,7 +215,7 @@ int MoveCursor()
 			if (my_cursor < hlp->s[my_sec]->lines-1) my_cursor++;
 		}
 	}
-	
+
 	return 1;
 }
 
@@ -229,7 +229,7 @@ void ShowHelp()
 	my_sec = 0;
 	my_cursor = 0;
 	my_link = 0;
-	
+
 	while (in_help)
 	{
 		DisplayHelp();
