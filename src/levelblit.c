@@ -2637,7 +2637,8 @@ void SpecialTile(int x, int y)
 			switch (specialmessage) {
 				case 1: sprintf(message, "Ancient artifact: Complete Map"); break;
 				case 2: sprintf(message, "Ancient artifact: Shield boost"); break;
-				case 3: sprintf(message, "Ancient artifact: Extra crystal efficiency"); break;
+				case 3: sprintf(message,  "   Ancient artifact:    ");
+					 sprintf(message2, "Extra crystal efficiency"); break;
 				case 4: sprintf(message, "Ancient artifact: Circuit booster"); break;
 				case 5: sprintf(message, "Ancient artifact: Metabolism increase"); break;
 				case 6: sprintf(message, "Ancient artifact: Dodge enhancer"); break;
@@ -2650,16 +2651,23 @@ void SpecialTile(int x, int y)
 				
 				case 20: sprintf(message, "Reward: Psi crystals"); break;
 				
-				case 30: sprintf(message, "Holy Sword 'Balmung' answers your call"); break;
-				case 31: sprintf(message, "Mystic Halberd 'Amenonuhoko' answers your call"); break;
-				case 32: sprintf(message, "Divine Bow 'Gandiva' answers your call"); break;
-				case 33: sprintf(message, "You capture the cursed seal. Return to the entrance"); break;
+				case 30: sprintf(message,  "Holy Sword 'Balmung'");
+					 sprintf(message2, " answers your call  "); break;
+				case 31: sprintf(message,  "Mystic Halberd 'Amenonuhoko'");
+					 sprintf(message2, "     answers your call      "); break;
+				case 32: sprintf(message,  "Divine Bow 'Gandiva'");
+					 sprintf(message2, " answers your call  "); break;
+				case 33: sprintf(message,  "You capture the cursed seal.");
+					 sprintf(message2, "  Return to the entrance"); break;
 				
-				case 40: sprintf(message, "Balmung will remain here, where the ley lines are strong"); break;
-				case 41: sprintf(message, "Amenonuhoko will remain here, where the ley lines are strong"); break;
-				case 42: sprintf(message, "Gandiva will remain here, where the ley lines are strong"); break;
+				case 40: sprintf(message,  "   Balmung will remain here,  ");
+					 sprintf(message2, "where the ley lines are strong"); break;
+				case 41: sprintf(message,  "Amenonuhoko will remain here, ");
+					 sprintf(message2, "where the ley lines are strong"); break;
+				case 42: sprintf(message,  "  Gandiva will remain here,   ");
+					 sprintf(message2, "where the ley lines are strong"); break;
 				
-				case 50: sprintf(message, ". . . . . .   retrieved 'Agate Knife'"); break;
+				case 50: sprintf(message, ". . . retrieved 'Agate Knife'"); break;
 				
 				default: sprintf(message, "ERROR: NO MESSAGE VALUE GIVEN"); break;
 			}
