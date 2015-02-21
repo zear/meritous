@@ -80,11 +80,64 @@ void InitHelp()
 
 		// different line
 		if (current_sec != NULL) {
+			int i;
+			int char_in_line;
+			int last_space = -1;
+			int start = 0;
+			int line_len = (SCREEN_W - 40-4)/8;
+			int text_len;
+
+			char *temp_line = malloc(strlen(linebuf)+1);
+			if (!temp_line)
+			{
+				fclose(fp);
+				return;
+			}
+
+			strcpy(temp_line, linebuf);
+
+			for (i = 0, char_in_line = 0; temp_line[i] != '\0'; ++i, ++char_in_line) {
+				if (temp_line[i] == ' ') {
+					last_space = i;
+				}
+				else if (temp_line[i] == '\n') {
+					last_space = -1;
+					char_in_line = -1;
+				}
+
+				if (char_in_line >= line_len) {
+					char_in_line = i - last_space -1;
+					if (last_space >= 0) {
+						temp_line[last_space] = '\n';
+						last_space = -1;
+					}
+				}
+			}
+
+			text_len = strlen(temp_line);
+			last_space = -1;
+
+			for (i = 0; i < text_len; ++i) {
+				if (temp_line[i] == '\n') {
+					temp_line[i] = '\0';
+
+					current_sec->l[current_sec->lines] = malloc(sizeof(struct help_line));
+					current_line = current_sec->l[current_sec->lines];
+					current_sec->lines++;
+					current_line->t = malloc(strlen(&temp_line[start])+1);
+					strcpy(current_line->t, &temp_line[start]);
+
+					start = i + 1;
+				}
+			}
+
 			current_sec->l[current_sec->lines] = malloc(sizeof(struct help_line));
 			current_line = current_sec->l[current_sec->lines];
 			current_sec->lines++;
-			current_line->t = malloc(strlen(linebuf)+1);
-			strcpy(current_line->t, linebuf);
+			current_line->t = malloc(strlen(&temp_line[start])+1);
+			strcpy(current_line->t, &temp_line[start]);
+
+			free(temp_line);
 		}
 	}
 	fclose(fp);
@@ -100,6 +153,8 @@ void DisplayHelp()
 	int line_num;
 	int follow_link = 0;
 	char linkfollow[20] = "";
+	int offset_x = 8;
+	int offset_y = 5;
 
 	DrawRect(0, 0, SCREEN_W, SCREEN_H, 0);
 	DrawRect(1, 1, SCREEN_W - 2, SCREEN_H - 2, 200);
@@ -112,15 +167,14 @@ void DisplayHelp()
 	// 70x40 display
 	current_sec = hlp->s[my_sec];
 
-	my_line = my_cursor - 19;
+	my_line = my_cursor - 18;
 	if (my_line < 0) my_line = 0;
 	if (my_line >= (current_sec->lines)) my_line = current_sec->lines - 1;
 	for (i = 0; i < 2; i++) {
-		draw_text(23+i, 40+(my_cursor - my_line)*10, "->", 255);
-		draw_text(599+i, 40+(my_cursor - my_line)*10, "<-", 255);
+		draw_text(23+i - offset_x, 40+(my_cursor - my_line)*10 - offset_y, "->", 255);
 	}
 
-	for (i = 0; i < 40; i++) {
+	for (i = 2; i < 23; i++) {
 		line_num = my_line + i;
 		if (line_num >= 0) {
 			if (line_num < current_sec->lines) {
@@ -128,21 +182,22 @@ void DisplayHelp()
 
 				switch (ltext[0]) {
 					case '!':
-
-						draw_text(40 + (560-strlen(ltext+1)*8)/2, 40+i*10, ltext+1, 255);
+						draw_text((SCREEN_W-strlen(ltext+1)*8)/2, i*10 - offset_y, ltext+1, 255);
 						break;
 					case '?':
-						strncpy(c_ident, ltext+1, strchr(ltext+1, '?')-ltext-1);
-						c_ident[strchr(ltext+1, '?')-ltext-1] = 0;
+						if (i+4 < 23) {
+							strncpy(c_ident, ltext+1, strchr(ltext+1, '?')-ltext-1);
+							c_ident[strchr(ltext+1, '?')-ltext-1] = 0;
 
-						draw_text(40, 40+i*10, strchr(ltext+1, '?')+1, my_cursor == line_num ? 200+(tick%16)*3 : 150);
-						if ((my_link == 1)&&(my_cursor == line_num)) {
-							follow_link = 1;
-							strcpy(linkfollow, c_ident);
+							draw_text(40 - offset_x, 40+i*10 - offset_y, strchr(ltext+1, '?')+1, my_cursor == line_num ? 200+(tick%16)*3 : 150);
+							if ((my_link == 1)&&(my_cursor == line_num)) {
+								follow_link = 1;
+								strcpy(linkfollow, c_ident);
+							}
 						}
 						break;
 					default:
-						draw_text(40, 40+i*10, ltext, 200);
+						draw_text(40 - offset_x, i*10 - offset_y, ltext, 200);
 						break;
 				}
 			}
@@ -155,7 +210,7 @@ void DisplayHelp()
 		for (i = 0; i < hlp->sections; i++) {
 			if (strcmp(linkfollow, hlp->s[i]->identifier) == 0) {
 				my_sec = i;
-				my_cursor = 0;
+				my_cursor = (my_sec == 0 ? 8 : 2);
 				break;
 			}
 		}
@@ -182,7 +237,7 @@ int MoveCursor()
 			if (ev.key.keysym.sym == SDLK_UP) {
 				key_up = 1;
 				key_delay = 10;
-				if (my_cursor > 0) my_cursor--;
+				if (my_cursor > (my_sec == 0 ? 8 : 2)) my_cursor--;
 			}
 			if (ev.key.keysym.sym == SDLK_ESCAPE) {
 				return 0;
@@ -209,7 +264,7 @@ int MoveCursor()
 
 	if (key_delay == 0) {
 		if (key_up == 1) {
-			if (my_cursor > 0) my_cursor--;
+			if (my_cursor > (my_sec == 0 ? 8 : 2)) my_cursor--;
 		}
 		if (key_down == 1) {
 			if (my_cursor < hlp->s[my_sec]->lines-1) my_cursor++;
@@ -227,7 +282,7 @@ void ShowHelp()
 	}
 	my_line = 0;
 	my_sec = 0;
-	my_cursor = 0;
+	my_cursor = 8;
 	my_link = 0;
 
 	while (in_help)

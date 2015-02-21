@@ -1,17 +1,13 @@
 '_____________________________________________________________________
 :default
-!---------------------------------------------------------------------
+!----------------------------------
 
 !MERITOUS HELP FILE
 
-!---------------------------------------------------------------------
+!----------------------------------
 
-To navigate this help file, use the up and down arrow keys. Press
-ENTER to activate links. Press ESC to return to the game. You can 
-access this help file at any time by pressing 'H'.
-                          
 !Table of Contents
-                          
+
 ?intro?Introduction
 ?background?Background
 ?controls?Controls
@@ -20,16 +16,16 @@ access this help file at any time by pressing 'H'.
 ?circuit?Your PSI Circuit and You
 ?cred?Credits
 :intro
-!---------------------------------------------------------------------
+!----------------------------------
 
 !Introduction
 
-!---------------------------------------------------------------------
+!----------------------------------
 
-     "     Far below the surface of the planet is a secret.     
-           A place of limitless power. Those that seek to
-             control such a utopia will soon bring an end        
-                            to themselves.                      "
+"Far below the surface of the planet is a secret.
+A place of limitless power. Those that seek to
+control such a utopia will soon bring an end
+to themselves."
 
 MERITOUS is a top-view dungeon crawl action/adventure game. As MERIT,
 a PSI user, your task is to investigate the Orcus Dome, an ancient
@@ -45,11 +41,11 @@ your goal.
 
 ?default?Return to top
 :background
-!---------------------------------------------------------------------
+!----------------------------------
 
 !Background
 
-!---------------------------------------------------------------------
+!----------------------------------
 
 !-- PSI --
 
@@ -121,11 +117,11 @@ out what the problem was and restore the Dome to its original state.
 
 ?default?Return to top
 :controls
-!---------------------------------------------------------------------
+!----------------------------------
 
 !Controls
 
-!---------------------------------------------------------------------
+!----------------------------------
 
 Arrow keys - Move around. To walk through doors, simply walk up to
              them and push against them.
@@ -147,11 +143,11 @@ P          - Pause the game.
 
 ?default?Return to top
 :dungeon
-!---------------------------------------------------------------------
+!----------------------------------
 
 !The Dome
 
-!---------------------------------------------------------------------
+!----------------------------------
 
 The Orcus Dome is made up of a series of rooms, connected with short
 passages. The rooms are mostly uniform in design, however, there are
@@ -237,11 +233,11 @@ but will only be visible while the PSI Keys are in place.
 
 ?default?Return to top
 :circuit
-!---------------------------------------------------------------------
+!----------------------------------
 
 !Your PSI Circuit and You 
 
-!---------------------------------------------------------------------
+!----------------------------------
 
 Your PSI ability has two main purposes in the game--offence and
 defence.
@@ -330,11 +326,11 @@ lives will increase.
 
 ?default?Return to top
 :wuss
-!---------------------------------------------------------------------
+!----------------------------------
 
 !Wuss Mode
 
-!---------------------------------------------------------------------
+!----------------------------------
 
 Available from the title menu, Wuss mode is a reduced-difficulty
 gameplay mode. When playing Wuss mode, you will be able to attack
@@ -345,11 +341,11 @@ the same way that it would normally.
 
 ?default?Return to top
 :cred
-!---------------------------------------------------------------------
+!----------------------------------
 
 !Credits 
 
-!---------------------------------------------------------------------
+!----------------------------------
 
     Concept:                    Lancer-X/Asceai
     
