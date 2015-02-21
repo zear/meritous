@@ -532,8 +532,7 @@ int main(int argc, char **argv)
 			can_continue = 0;
 		}
 		
-		//maxoptions = 2 + can_continue;
-		maxoptions = 3 + can_continue;
+		maxoptions = 4 + can_continue;
 	
 		title = IMG_Load("dat/i/title.png");
 		title_pr = IMG_Load("dat/i/title.png");
@@ -554,7 +553,8 @@ int main(int argc, char **argv)
 			if (can_continue) draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2, "Continue", 255);
 			draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2 + can_continue*10, "New Game", 255);
 			draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2 + 10 + can_continue*10, "New Game (Wuss mode)", 255);
-			draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2 + 20 + can_continue*10, "Quit", 255); //
+			draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2 + 20 + can_continue*10, "Help", 255);
+			draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2 + 30 + can_continue*10, "Quit", 255); //
 			if (ticker_tick >= 30) {
 				draw_text((SCREEN_W - 14*8)/2 - 17, SCREEN_H/2 + option * 10, "-", 205 + sin((float)ticker_tick / 5.0)*24);
 				draw_text((SCREEN_W - 14*8)/2 - 20, SCREEN_H/2 + option * 10, " >", 205 + sin((float)ticker_tick / 5.0)*24);
@@ -612,19 +612,21 @@ int main(int argc, char **argv)
 				if (option == (0 + can_continue)) {
 					training = 0;
 					DungeonPlay("");
-				} else {
-					if(option == (1 + can_continue)) {
-						training = 1;
-						DungeonPlay("");
-					}
-					else	// "quit" pressed
-					{
-						executable_running = 0;
-						on_title = 0;
-						freeHomeDir();
-						SDL_Quit();
-						exit(0);
-					}
+				} else if(option == (1 + can_continue)) {
+					training = 1;
+					DungeonPlay("");
+				}
+				else if(option == (2 + can_continue)) {
+					CancelVoluntaryExit();
+					ShowHelp();
+				}
+				else	// "quit" pressed
+				{
+					executable_running = 0;
+					on_title = 0;
+					freeHomeDir();
+					SDL_Quit();
+					exit(0);
 				}
 			}
 			// clean up
