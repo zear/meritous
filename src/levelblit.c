@@ -74,6 +74,7 @@ void DrawCircle(int x, int y, int r, unsigned char c);
 
 void DrawArtifacts();
 
+void ReleaseHeldKeys();
 void HandleEvents();
 
 void text_init();
@@ -1309,6 +1310,20 @@ void CancelVoluntaryExit()
 	}
 }
 
+void ReleaseHeldKeys()
+{
+	int i;
+
+	for (i = 0; i < 10; ++i) {
+		key_held[i] = 0;
+	}
+
+	ignoreJoyUP = 0;
+	ignoreJoyDN = 0;
+	ignoreJoyLT = 0;
+	ignoreJoyRT = 0;
+}
+
 void HandleEvents()
 {
 	unsigned short db;
@@ -1409,6 +1424,7 @@ void HandleEvents()
 						break;
 					case SDLK_h:
 						CancelVoluntaryExit();
+						ReleaseHeldKeys();
 						ShowHelp();
 						break;
 					case SDLK_p:

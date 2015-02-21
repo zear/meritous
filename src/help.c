@@ -240,9 +240,15 @@ int MoveCursor()
 				if (my_cursor > (my_sec == 0 ? 8 : 2)) my_cursor--;
 			}
 			if (ev.key.keysym.sym == SDLK_ESCAPE) {
+				key_delay = 0;
+				key_up = 0;
+				key_down = 0;
 				return 0;
 			}
 			if (ev.key.keysym.sym == SDLK_h) {
+				key_delay = 0;
+				key_up = 0;
+				key_down = 0;
 				return 0;
 			}
 			if ((ev.key.keysym.sym == SDLK_SPACE) || (ev.key.keysym.sym == SDLK_RETURN))
@@ -258,6 +264,9 @@ int MoveCursor()
 			}
 		}
 		if (ev.type == SDL_QUIT) {
+			key_delay = 0;
+			key_up = 0;
+			key_down = 0;
 			return 0;
 		}
 	}
