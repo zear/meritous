@@ -2618,7 +2618,8 @@ void SpecialTile(int x, int y)
 				sprintf(message, "    This is a crystal device.    ");
 				sprintf(message2, "It isn't working at the moment.");
 			} else {
-				sprintf(message, "Press START to activate the crystal device");
+				sprintf(message, "Press START to activate");
+				sprintf(message2, "the crystal device");
 			}
 			break;
 		case 42:
@@ -2627,7 +2628,7 @@ void SpecialTile(int x, int y)
 					
 				} else {
 					sprintf(message, "  The artifact is tainted with shadow.  ");
-					sprintf(message2, "You must slay more of the shadow first.");
+					sprintf(message2, "Slay more of the shadow first.");
 				}
 			}
 			break;
