@@ -1905,7 +1905,7 @@ void draw_text(int x, int y, char *str, Uint8 tcol)
 	int i;
 	int charInLine;
 	int lastSpace = -1;
-	int lineLen = (SCREEN_W - x)/8;
+	int lineLen = floor((SCREEN_W - x)/8);
 	char *str_cpy;
 
 	if (str == 0) {
@@ -1927,16 +1927,28 @@ void draw_text(int x, int y, char *str, Uint8 tcol)
 			lastSpace = i;
 		}
 		else if (str_cpy[i] == '\n') {
-			lastSpace = -1;
-			charInLine = -1;
+			if (charInLine == 0 || (i > 0 && (str_cpy[i-1] == '.' || str_cpy[i-1] == ':'))) {
+				if (charInLine >= lineLen) {
+					if (lastSpace >= 0) {
+						str_cpy[lastSpace] = '\n';
+						str_cpy[i] = ' ';
+					}
+				}
+				lastSpace = -1;
+				charInLine = -1;
+			}
+			else
+			{
+				str_cpy[i] = ' ';
+			}
 		}
 
 		if (charInLine >= lineLen) {
+			charInLine = i - lastSpace - 1;
 			if (lastSpace >= 0) {
 				str_cpy[lastSpace] = '\n';
 				lastSpace = -1;
 			}
-			charInLine = lastSpace - i - 1;
 		}
 	}
 

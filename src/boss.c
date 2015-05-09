@@ -94,279 +94,279 @@ struct dlg_box dtext[5][12] =
   { // Meridian
 	{0, 5, 0,
 		"MERIDIAN:\n"
-		"  \n"
-		"  Different...\n"
-		"  \n"
-		"  Your PSI is different. Your magic is perverse. Poisonous. Treacherous."
+		"\n"
+		"Different...\n"
+		"\n"
+		"Your PSI is different. Your magic is perverse. Poisonous. Treacherous."
 	},
 	{1, 5, 0,
 		"MERIT:\n"
-		"  \n"
-		"  Nothing but darkness carried on the wind of a curse. It's amazing that you\n"
-		"  are able to communicate with me at all. Surely a statement on the perversity\n"
-		"  of my magic, coming from you, is more than a little bit hypocritical."
+		"\n"
+		"Nothing but darkness carried on the wind of a curse. It's amazing that you\n"
+		"are able to communicate with me at all. Surely a statement on the perversity\n"
+		"of my magic, coming from you, is more than a little bit hypocritical."
 	},
 	{0, 6, 1,
 		"MERIDIAN:\n"
-		"  \n"
-		"  So. You've even brought that tainted thing with you.\n"
-		"  That does not really surprise me, but nonetheless, your weak, impure PSI\n"
-		"  will do you little good against one manifest of shadows. Pitiful thing from\n"
-		"  the surface, MERIDIAN shall return you to the dust from whence you came!"
+		"\n"
+		"So. You've even brought that tainted thing with you.\n"
+		"That does not really surprise me, but nonetheless, your weak, impure PSI\n"
+		"will do you little good against one manifest of shadows. Pitiful thing from\n"
+		"the surface, MERIDIAN shall return you to the dust from whence you came!"
 	}
   },
   
   { // Ataraxia
 	{0, 5, 0,
 		"ATARAXIA:\n"
-		"  \n"
-		"  It felt nearly as inconsequential as a stilling in the breeze, but there was\n"
-		"  more to it, wasn't it? It feels as though I lost a part of myself. Was that\n"
-		"  your doing?"
+		"\n"
+		"It felt nearly as inconsequential as a stilling in the breeze, but there was\n"
+		"more to it, wasn't it? It feels as though I lost a part of myself. Was that\n"
+		"your doing?"
 	},
 	{1, 6, 0,
 		"MERIT:\n"
-		"  \n"
-		"  Moving Ochra's Keys from the ley lines was only the start, am I correct?\n"
-		"  Nonetheless, what you've already caused is enough. The Keys were placed to\n"
-		"  prevent corruption in the PSI. Moving them renders the PSI unusable. There\n"
-		"  is nothing to be gained from THAT."
+		"\n"
+		"Moving Ochra's Keys from the ley lines was only the start, am I correct?\n"
+		"Nonetheless, what you've already caused is enough. The Keys were placed to\n"
+		"prevent corruption in the PSI. Moving them renders the PSI unusable. There\n"
+		"is nothing to be gained from THAT."
 	},
 	{0, 8, 0,
 		"ATARAXIA:\n"
-		"  \n"
-		"  Statements like that belie your youthful naivety and ignorance. There is no\n"
-		"  way to make magic unusable. What you see now is the other side of PSI that\n"
-		"  pitiful beings such as yourself turn a blind eye to. Like the sun at dawn\n"
-		"  the sun at dusk, it is nonetheless the same sun, and each beautiful in its\n"
-		"  own way. PSI isn't just for things like you, but for the entire cosmos.\n"
-		"  Nothing can be gained by preventing it from taking its natural course."
+		"\n"
+		"Statements like that belie your youthful naivety and ignorance. There is no\n"
+		"way to make magic unusable. What you see now is the other side of PSI that\n"
+		"pitiful beings such as yourself turn a blind eye to. Like the sun at dawn\n"
+		"the sun at dusk, it is nonetheless the same sun, and each beautiful in its\n"
+		"own way. PSI isn't just for things like you, but for the entire cosmos.\n"
+		"Nothing can be gained by preventing it from taking its natural course."
 	},
 	{1, 8, 0,
 		"MERIT:\n"
-		"  \n"
-		"  You delude yourself with the crazed whisperings from the muck that spawned\n"
-		"  you. You say that this PSI is still PSI, but it is not. PSI is the energy of\n"
-		"  creation. This is the energy of destruction. PSI is a pure force, gathered\n"
-		"  from around me and targeted with my mind. This is a foul mixture, existing\n"
-		"  as half-mad corruptions like you. It can only break apart when confronted\n"
-		"  with true power."
+		"\n"
+		"You delude yourself with the crazed whisperings from the muck that spawned\n"
+		"you. You say that this PSI is still PSI, but it is not. PSI is the energy of\n"
+		"creation. This is the energy of destruction. PSI is a pure force, gathered\n"
+		"from around me and targeted with my mind. This is a foul mixture, existing\n"
+		"as half-mad corruptions like you. It can only break apart when confronted\n"
+		"with true power."
 	},
 	{0, 6, 1,
 		"ATARAXIA:\n"
-		"  \n"
-		"  You realise that not even your fellow PSI users agree with you? But, it is\n"
-		"  of little consequence. I'll show you the true beauty of that which you shun\n"
-		"  by smothering you in it and turning your flesh into fuel for the PSI that\n"
-		"  runs through the veins of this Dome!"
+		"\n"
+		"You realise that not even your fellow PSI users agree with you? But, it is\n"
+		"of little consequence. I'll show you the true beauty of that which you shun\n"
+		"by smothering you in it and turning your flesh into fuel for the PSI that\n"
+		"runs through the veins of this Dome!"
 	}
   },
   
   { // Merodach
 	{0, 9, 0,
 		"MERODACH:\n"
-		"  \n"
-		"  e v e r y t h i n g   h a s   t u r n e d   t o   d a r k n e s s\n"
-		"  \n"
-		"  n o   s o u n d   n o   l i g h t   n o   s e n s a t i o n\n"
-		"  \n"
-		"  w a s   t h i s   w h a t   y o u   w e r e   a f t e r   f r o m\n"
-		"  \n"
-		"  t h e   b e g i n n i n g ?"
+		"\n"
+		"e v e r y t h i n g   h a s   t u r n e d   t o   d a r k n e s s\n"
+		"\n"
+		"n o   s o u n d   n o   l i g h t   n o   s e n s a t i o n\n"
+		"\n"
+		"w a s   t h i s   w h a t   y o u   w e r e   a f t e r   f r o m\n"
+		"\n"
+		"t h e   b e g i n n i n g ?"
 	},
 	{0, 7, 1,
-		"MERODACH\n"
-		"  \n"
-		"  i ' l l   w r a p   m y   r e m a i n i n g   P S I   a r o u n d   y o u\n"
-		"  \n"
-		"  a n d   e x t i n g u i s h   t h a t   l i f e   o f   y o u r s\n"
-		"  \n"
-		"  l e t ' s   s e e   h o w   y o u   e n j o y   e t e r n a l   r e s t"
+		"MERODACH:\n"
+		"\n"
+		"i ' l l   w r a p   m y   r e m a i n i n g   P S I   a r o u n d   y o u\n"
+		"\n"
+		"a n d   e x t i n g u i s h   t h a t   l i f e   o f   y o u r s\n"
+		"\n"
+		"l e t ' s   s e e   h o w   y o u   e n j o y   e t e r n a l   r e s t"
 	}
   },
   
   { // Wervyn Anixil
     {1, 6, 0,
 		"MERIT:\n"
-		"  \n"
-		"  ANIXIL? So, that's how it is. I assume you worked out a way of using the\n"
-		"  PSI in this state. So, not happy with your allotted PSI from the Dome, you\n"
-		"  decided to render it in this form and take it all for yourself.\n"
-		"  What was your reasoning for doing something this rash, though?"
+		"\n"
+		"ANIXIL? So, that's how it is. I assume you worked out a way of using the\n"
+		"PSI in this state. So, not happy with your allotted PSI from the Dome, you\n"
+		"decided to render it in this form and take it all for yourself.\n"
+		"What was your reasoning for doing something this rash, though?"
 	},
 	
 	{0, 9, 0,
 		"WERVYN ANIXIL:\n"
-		"  \n"
-		"  All you seem to do is complain. That's what I've discovered through this,\n"
-		"  and it's definitely part of the reason I did it. I do creative things like\n"
-		"  this sort of 'punishment' because it lets me better understand the nature of\n"
-		"  all the forces involved. It tells me that you, MERIT, really do not have a\n"
-		"  clue how to relate to other PSI users, and that for the most part you're\n"
-		"  entirely self-absorbed. It tells me that, while PSI users in general doesn't\n"
-		"  really 'get' the ethos of the forces involved here, and that the rerendered"
+		"\n"
+		"All you seem to do is complain. That's what I've discovered through this,\n"
+		"and it's definitely part of the reason I did it. I do creative things like\n"
+		"this sort of 'punishment' because it lets me better understand the nature of\n"
+		"all the forces involved. It tells me that you, MERIT, really do not have a\n"
+		"clue how to relate to other PSI users, and that for the most part you're\n"
+		"entirely self-absorbed. It tells me that, while PSI users in general doesn't\n"
+		"really 'get' the ethos of the forces involved here, and that the rerendered"
 	},
 	
 	{0, 9, 0,
 		"WERVYN ANIXIL:\n"
-		"  \n"
-		"  PSI, as intelligent as it is, pretty much entirely understands it, though it\n"
-		"  was mistaken that the rendering of this form was intentional.\n"
-		"  \n"
-		"  Regarding that, by the way, THAT is the reason I thought you needed a\n"
-		"  punishment. Making ridiculously inefficient, wasteful use of the limited PSI\n"
-		"  we have available wouldn't have been a problem if it was just the normal PSI\n"
-		"  like we'd planned it to be. But you knew full well that PSI users who wanted"
+		"\n"
+		"PSI, as intelligent as it is, pretty much entirely understands it, though it\n"
+		"was mistaken that the rendering of this form was intentional.\n"
+		"\n"
+		"Regarding that, by the way, THAT is the reason I thought you needed a\n"
+		"punishment. Making ridiculously inefficient, wasteful use of the limited PSI\n"
+		"we have available wouldn't have been a problem if it was just the normal PSI\n"
+		"like we'd planned it to be. But you knew full well that PSI users who wanted"
 	},
 	
 	{0, 9, 0,
 	    "WERVYN ANIXIL:\n"
-		"  \n"
-		"  nothing to do with it were being greatly inconvenienced by usage clogging up\n"
-		"  the limited ley-lines we have. That makes you an asshole, a deliberate prick\n"
-		"  to everyone in the world because you thought you could get away with it, and\n"
-		"  that it wouldn't matter.\n"
-		"  \n"
-		"  I also take issue with this nonsense about your punishment being severe,\n"
-		"  because it's not. You can still use your PSI as you used it before, to a"
+		"\n"
+		"nothing to do with it were being greatly inconvenienced by usage clogging up\n"
+		"the limited ley-lines we have. That makes you an asshole, a deliberate prick\n"
+		"to everyone in the world because you thought you could get away with it, and\n"
+		"that it wouldn't matter.\n"
+		"\n"
+		"I also take issue with this nonsense about your punishment being severe,\n"
+		"because it's not. You can still use your PSI as you used it before, to a"
 	},
 	
 	{0, 9, 0,
 		"WERVYN ANIXIL:\n"
-		"  \n"
-		"  similar level of effectiveness. I specifically allowed access to THIS form\n"
-		"  of PSI so that you couldn't complain that you couldn't use magic. Now\n"
-		"  exiling you to the Dome had multiple meanings. One was to effectively tell\n"
-		"  you, 'I don't think you have anything of value to do, so I'm putting you in\n"
-		"  a place where no one does anything of value.' I still think that, by the\n"
-		"  way. Another was, like I said, to see what you would do. Maybe you would\n"
-		"  actually cast something worth the PSI, then. Or maybe you would take the"
+		"\n"
+		"similar level of effectiveness. I specifically allowed access to THIS form\n"
+		"of PSI so that you couldn't complain that you couldn't use magic. Now\n"
+		"exiling you to the Dome had multiple meanings. One was to effectively tell\n"
+		"you, 'I don't think you have anything of value to do, so I'm putting you in\n"
+		"a place where no one does anything of value.' I still think that, by the\n"
+		"way. Another was, like I said, to see what you would do. Maybe you would\n"
+		"actually cast something worth the PSI, then. Or maybe you would take the"
 	},
 	
 	{0, 8, 0,
 		"WERVYN ANIXIL:\n"
-		"  \n"
-		"  hint and just stop it for the week until I decided you'd had enough. But you\n"
-		"  couldn't do either of those things, because all you do is complain.\n"
-		"  \n"
-		"  I want you to take a look at yourself and ask what you want to accomplish\n"
-		"  here, and what you think is keeping you here. Obviously you have some\n"
-		"  attachment, even though you keep saying the new PSI is worthless. This isn't"
+		"\n"
+		"hint and just stop it for the week until I decided you'd had enough. But you\n"
+		"couldn't do either of those things, because all you do is complain.\n"
+		"\n"
+		"I want you to take a look at yourself and ask what you want to accomplish\n"
+		"here, and what you think is keeping you here. Obviously you have some\n"
+		"attachment, even though you keep saying the new PSI is worthless. This isn't"
 	},
 	
 	{0, 9, 0,	
 		"WERVYN ANIXIL:\n"
-		"  \n"
-		"  true, of course, ATARAXIA really captures a good point here. For the most\n"
-		"  part, PSI users just find you extremely annoying because you continually set\n"
-		"  yourself at odds with pretty much every kind of PSI usage but your own, and\n"
-		"  then complain about it. Do you want things to be different? They certainly\n"
-		"  can be. 'EVEN IF I DO CHANGE, THEN MY PSI WON'T BE GOOD ENOUGH!' That's\n"
-		"  bullshit. All other PSI users seem to be on the path to figuring out how to\n"
-		"  just use it. You can too."
+		"\n"
+		"true, of course, ATARAXIA really captures a good point here. For the most\n"
+		"part, PSI users just find you extremely annoying because you continually set\n"
+		"yourself at odds with pretty much every kind of PSI usage but your own, and\n"
+		"then complain about it. Do you want things to be different? They certainly\n"
+		"can be. 'EVEN IF I DO CHANGE, THEN MY PSI WON'T BE GOOD ENOUGH!' That's\n"
+		"bullshit. All other PSI users seem to be on the path to figuring out how to\n"
+		"just use it. You can too."
 	},
 	
 	{0, 9, 0,
 		"WERVYN ANIXIL:\n"
-		"  \n"
-		"  Your 'punishment' is up tomorrow, I'd only planned to do it for a week. Of\n"
-		"  course, you can continue complaining, and I may have to think of something\n"
-		"  else to do to you. But I'm not going to kill you. If you want to leave this\n"
-		"  mortal coil because you can't take it anymore, then leave. If you don't want\n"
-		"  to leave, then start working out your issues with the new PSI, I actually\n"
-		"  would love to help. And if you don't want to do that, then I'm sorry, but\n"
-		"  you're going to continue being useless at magic, because the way you are"
+		"\n"
+		"Your 'punishment' is up tomorrow, I'd only planned to do it for a week. Of\n"
+		"course, you can continue complaining, and I may have to think of something\n"
+		"else to do to you. But I'm not going to kill you. If you want to leave this\n"
+		"mortal coil because you can't take it anymore, then leave. If you don't want\n"
+		"to leave, then start working out your issues with the new PSI, I actually\n"
+		"would love to help. And if you don't want to do that, then I'm sorry, but\n"
+		"you're going to continue being useless at magic, because the way you are"
 	},
 	
 	{0, 4, 0,
 		"WERVYN ANIXIL:\n"
-		"  \n"
-		"  now, it's not surprising at all that your PSI ability is as stunted as it\n"
-		"  is."
+		"\n"
+		"now, it's not surprising at all that your PSI ability is as stunted as it\n"
+		"is."
 	},
 	
 	{1, 4, 0,
 		"MERIT:\n"
-		"  \n"
-		"  The tainted PSI has driven even you mad. Mad with power. This is a blow I\n"
-		"  I must strike, for everyone. For humanity."
+		"\n"
+		"The tainted PSI has driven even you mad. Mad with power. This is a blow I\n"
+		"I must strike, for everyone. For humanity."
 	},
 	
 	{0, 3, 1,
 		"WERVYN ANIXIL:\n"
-		"  \n"
-		"  I'll meet you at the point of diminishing returns."
+		"\n"
+		"I'll meet you at the point of diminishing returns."
 	}
   },
   
   { // Wervyn Anixil???? (with Agate Knife)
     {1, 8, 0,
 		"MERIT:\n"
-		"  \n"
-		"  ANIXIL? So, that's how it is. I assume you worked out a way of using the\n"
-		"  PSI in this state. So, not happy with your allotted PSI from the Dome, you\n"
-		"  decided to render it in this form and take it all for yourself.\n"
-		"  What was your reasoning for doing something this rash, though?\n"
-		"  \n"
-		"  That was what you wanted to hear, right?"
+		"\n"
+		"ANIXIL? So, that's how it is. I assume you worked out a way of using the\n"
+		"PSI in this state. So, not happy with your allotted PSI from the Dome, you\n"
+		"decided to render it in this form and take it all for yourself.\n"
+		"What was your reasoning for doing something this rash, though?\n"
+		"\n"
+		"That was what you wanted to hear, right?"
 	},
 	
 	{0, 7, 0,
 		"WERVYN ANIXIL????:\n"
-		"  \n"
-		"  All you seem to do is complain. That's what I've discovered through this,\n"
-		"  and it's definitely part of the ... ... ... ... ... ... ... ... ... ... ...\n"
-		"  ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...\n"
-		"  ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...\n"
-		"  ... ... oh."
+		"\n"
+		"All you seem to do is complain. That's what I've discovered through this,\n"
+		"and it's definitely part of the ... ... ... ... ... ... ... ... ... ... ...\n"
+		"... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...\n"
+		"... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...\n"
+		"... ... oh."
 	},
 	
 	{1, 6, 0,
 		"MERIT:\n"
-		"  \n"
-		"  If I've learned anything in life, it's that things are often not quite as\n"
-		"  they seem. You couldn't use the Agate Knife, so you attempted to hide it.\n"
-		"  \n"
-		"  Unfortunately for you, I found it and recognised it."
+		"\n"
+		"If I've learned anything in life, it's that things are often not quite as\n"
+		"they seem. You couldn't use the Agate Knife, so you attempted to hide it.\n"
+		"\n"
+		"Unfortunately for you, I found it and recognised it."
 	},
 	
 	{0, 7, 0,
 	    "WERVYN ANIXIL????:\n"
-		"  \n"
-		"  . . . . no. It's not just recognising the Knife at all. You were actually\n"
-		"  able to use it, too.\n"
-		"  \n"
-		"  So. You too knew the secret?"
+		"\n"
+		". . . . no. It's not just recognising the Knife at all. You were actually\n"
+		"able to use it, too.\n"
+		"\n"
+		"So. You too knew the secret?"
 	},
 	
 	{1, 5, 0,
 		"MERIT:\n"
-		"  \n"
-		"  I was one of the few that he told.\n"
-		"  \n"
-		"  And so I know."
+		"\n"
+		"I was one of the few that he told.\n"
+		"\n"
+		"And so I know."
 	},
 	
 	{0, 3, 0,
 		"????:\n"
-		"  \n"
-		"  Umm..."
+		"\n"
+		"Umm..."
 	},
 	
 	{1, 7, 0,	
 		"MERIT:\n"
-		"  \n"
-		"  Well, it wasn't a bad attempt. If I hadn't found THAT, I would never have\n"
-		"  known.\n"
-		"  \n"
-		"  Now that that's taken care of, I might as well finish what I came here for.\n"
-		"  Prepare yourself."
+		"\n"
+		"Well, it wasn't a bad attempt. If I hadn't found THAT, I would never have\n"
+		"known.\n"
+		"\n"
+		"Now that that's taken care of, I might as well finish what I came here for.\n"
+		"Prepare yourself."
 	},
 	
 	{0, 3, 1,
 		"????:\n"
-		"  \n"
-		"  I won't hold back! There's not a lot of point, now."
+		"\n"
+		"I won't hold back! There's not a lot of point, now."
 	}
   }
 };
@@ -376,7 +376,7 @@ void BossDialog()
 	int ypos;
 	int lines;
 	int dialog_set;
-	
+
 	dialog_set = current_boss;
 	
 	if (current_boss == 3) {
@@ -396,15 +396,10 @@ void BossDialog()
 		enter_pressed = 0;
 	}
 	if (boss_dlg > 0) {
-		if (dtext[dialog_set][boss_dlg-1].pos == 0) {
-			ypos = 29;
-		} else {
-			ypos = 466 - lines * 10 - 14;
-		}
-		DrawRect(0, ypos, 640, lines * 10 + 14, 0);
-		DrawRect(2, ypos+2, 636, lines * 10 + 10, 40);
-		DrawRect(4, ypos+4, 632, lines * 10 + 6, 80);
-		draw_text(8, ypos+8, dtext[dialog_set][boss_dlg-1].txt, 255);
+		ypos = 34;
+
+		DrawBorder(40, 16);
+		draw_text(12, ypos+8, dtext[dialog_set][boss_dlg-1].txt, 255);
 	}
 }
 
