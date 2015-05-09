@@ -1422,7 +1422,7 @@ void HandleEvents()
 						}
 						CancelVoluntaryExit();
 						break;
-					case SDLK_h:
+					case SDLK_LSHIFT:
 						CancelVoluntaryExit();
 						ReleaseHeldKeys();
 						ShowHelp();
@@ -2638,7 +2638,7 @@ void SpecialTile(int x, int y)
 		default:
 			if (first_game) {
 				if (otext < 60) {
-					sprintf(message, "Press H to read the help file");
+					sprintf(message, "Press X to read the help file");
 					otext++;
 				}
 			}
