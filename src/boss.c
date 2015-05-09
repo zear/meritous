@@ -166,22 +166,22 @@ struct dlg_box dtext[5][12] =
 	{0, 9, 0,
 		"MERODACH:\n"
 		"\n"
-		"e v e r y t h i n g   h a s   t u r n e d   t o   d a r k n e s s\n"
+		"E\1v\1e\1r\1y\1t\1h\1i\1n\1g   h\1a\1s   t\1u\1r\1n\1e\1d   t\1o   d\1a\1r\1k\1n\1e\1s\1s\1.\n"
 		"\n"
-		"n o   s o u n d   n o   l i g h t   n o   s e n s a t i o n\n"
+		"N\1o   s\1o\1u\1n\1d   n\1o   l\1i\1g\1h\1t   n\1o   s\1e\1n\1s\1a\1t\1i\1o\1n\1.\n"
 		"\n"
-		"w a s   t h i s   w h a t   y o u   w e r e   a f t e r   f r o m\n"
+		"W\1a\1s   t\1h\1i\1s   w\1h\1a\1t   y\1o\1u   w\1e\1r\1e   a\1f\1t\1e\1r   f\1r\1o\1m\n"
 		"\n"
-		"t h e   b e g i n n i n g ?"
+		"t\1h\1e   b\1e\1g\1i\1n\1n\1i\1n\1g\1?"
 	},
 	{0, 7, 1,
 		"MERODACH:\n"
 		"\n"
-		"i ' l l   w r a p   m y   r e m a i n i n g   P S I   a r o u n d   y o u\n"
+		"I\1'\1l\1l   w\1r\1a\1p   m\1y   r\1e\1m\1a\1i\1n\1i\1n\1g   P\1S\1I   a\1r\1o\1u\1n\1d   y\1o\1u\n"
 		"\n"
-		"a n d   e x t i n g u i s h   t h a t   l i f e   o f   y o u r s\n"
+		"a\1n\1d   e\1x\1t\1i\1n\1g\1u\1i\1s\1h   t\1h\1a\1t   l\1i\1f\1e   o\1f   y\1o\1u\1r\1s\1.\n"
 		"\n"
-		"l e t ' s   s e e   h o w   y o u   e n j o y   e t e r n a l   r e s t"
+		"L\1e\1t\1'\1s   s\1e\1e   h\1o\1w   y\1o\1u   e\1n\1j\1o\1y   e\1t\1e\1r\1n\1a\1l   r\1e\1s\1t\1!"
 	}
   },
   
@@ -315,9 +315,9 @@ struct dlg_box dtext[5][12] =
 		"WERVYN ANIXIL????:\n"
 		"\n"
 		"All you seem to do is complain. That's what I've discovered through this,\n"
-		"and it's definitely part of the ... ... ... ... ... ... ... ... ... ... ...\n"
-		"... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...\n"
-		"... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...\n"
+		"and it's definitely part of the\n"
+		"... ... ... ... ... ... ... ...\n"
+		"... ... ... ... ... ... ... ... ...\n"
 		"... ... oh."
 	},
 	
