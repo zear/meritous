@@ -78,7 +78,7 @@ void ReleaseHeldKeys();
 void HandleEvents();
 
 void text_init();
-void draw_text(int x, int y, char *str, Uint8 tcol);
+void draw_text(int x, int y, int right_margin, char *str, Uint8 tcol);
 unsigned char font_data[128][8][8];
 
 void DrawShield();
@@ -548,21 +548,21 @@ int main(int argc, char **argv)
 				}
 			}
 			SDL_BlitSurface(title_pr, NULL, screen, NULL);
-			draw_text(3, SCREEN_H - 11, MERITOUS_VERSION, 225 + sin((float)ticker_tick / 15)*30);
-			draw_text(SCREEN_W - strlen("(c) Lancer-X/ASCEAI")*8 - 8, SCREEN_H - 22, "(c) Lancer-X/ASCEAI", 225 + sin((float)ticker_tick / 15)*30);
-			draw_text(SCREEN_W - strlen("(c) Lancer-X/ASCEAI")*8 - 8, SCREEN_H - 11, "GCW0 port by Zear", 225 + sin((float)ticker_tick / 15)*30);
-			if (can_continue) draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2, "Continue", 255);
-			draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2 + can_continue*10, "New Game", 255);
-			draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2 + 10 + can_continue*10, "New Game (Wuss mode)", 255);
-			draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2 + 20 + can_continue*10, "Help", 255);
-			draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2 + 30 + can_continue*10, "Quit", 255); //
+			draw_text(3, SCREEN_H - 11, 0, MERITOUS_VERSION, 225 + sin((float)ticker_tick / 15)*30);
+			draw_text(SCREEN_W - strlen("(c) Lancer-X/ASCEAI")*8 - 8, SCREEN_H - 22, 0, "(c) Lancer-X/ASCEAI", 225 + sin((float)ticker_tick / 15)*30);
+			draw_text(SCREEN_W - strlen("(c) Lancer-X/ASCEAI")*8 - 8, SCREEN_H - 11, 0, "GCW0 port by Zear", 225 + sin((float)ticker_tick / 15)*30);
+			if (can_continue) draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2, 0, "Continue", 255);
+			draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2 + can_continue*10, 0, "New Game", 255);
+			draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2 + 10 + can_continue*10, 0, "New Game (Wuss mode)", 255);
+			draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2 + 20 + can_continue*10, 0, "Help", 255);
+			draw_text((SCREEN_W - 14*8)/2, SCREEN_H/2 + 30 + can_continue*10, 0, "Quit", 255); //
 			if (ticker_tick >= 30) {
-				draw_text((SCREEN_W - 14*8)/2 - 17, SCREEN_H/2 + option * 10, "-", 205 + sin((float)ticker_tick / 5.0)*24);
-				draw_text((SCREEN_W - 14*8)/2 - 20, SCREEN_H/2 + option * 10, " >", 205 + sin((float)ticker_tick / 5.0)*24);
-				draw_text((SCREEN_W - 14*8)/2 - 19, SCREEN_H/2 + option * 10, " >", 190 + sin((float)ticker_tick / 5.0)*24);
-				draw_text((SCREEN_W - 14*8)/2 - 21, SCREEN_H/2 + option * 10, " >", 190 + sin((float)ticker_tick / 5.0)*24);
-				draw_text((SCREEN_W - 14*8)/2 - 18, SCREEN_H/2 + option * 10, " >", 165 + sin((float)ticker_tick / 5.0)*24);
-				draw_text((SCREEN_W - 14*8)/2 - 22, SCREEN_H/2 + option * 10, " >", 165 + sin((float)ticker_tick / 5.0)*24);
+				draw_text((SCREEN_W - 14*8)/2 - 17, SCREEN_H/2 + option * 10, 0, "-", 205 + sin((float)ticker_tick / 5.0)*24);
+				draw_text((SCREEN_W - 14*8)/2 - 20, SCREEN_H/2 + option * 10, 0, " >", 205 + sin((float)ticker_tick / 5.0)*24);
+				draw_text((SCREEN_W - 14*8)/2 - 19, SCREEN_H/2 + option * 10, 0, " >", 190 + sin((float)ticker_tick / 5.0)*24);
+				draw_text((SCREEN_W - 14*8)/2 - 21, SCREEN_H/2 + option * 10, 0, " >", 190 + sin((float)ticker_tick / 5.0)*24);
+				draw_text((SCREEN_W - 14*8)/2 - 18, SCREEN_H/2 + option * 10, 0, " >", 165 + sin((float)ticker_tick / 5.0)*24);
+				draw_text((SCREEN_W - 14*8)/2 - 22, SCREEN_H/2 + option * 10, 0, " >", 165 + sin((float)ticker_tick / 5.0)*24);
 			}
 	
 			VideoUpdate();
@@ -679,7 +679,7 @@ void ProgressBarScreen(int part, float progress, char *message, float t_parts)
 
 	DrawRect(SCREEN_W/2 - 120, SCREEN_H/2 - 23, 240, 50, 80);
 	DrawRect(SCREEN_W/2 - 118, SCREEN_H/2 - 21, 236, 46, 20);
-	draw_text(SCREEN_W/2 - 88, SCREEN_H/2 - 12, message, 255);
+	draw_text(SCREEN_W/2 - 88, SCREEN_H/2 - 12, 0, message, 255);
 	DrawRect(SCREEN_W/2 - 88, SCREEN_H/2 + 4, 176, 12, 128);
 	DrawRect(SCREEN_W/2 - 86, SCREEN_H/2 + 6, 172, 8, 0);
 	
@@ -1032,26 +1032,26 @@ int DungeonPlay(char *fname)
 			if(!game_paused)
 			{
 				sprintf(buf, "Psi Crystals: %d", player_gems);
-				draw_text(3, 3, buf, 200);
+				draw_text(3, 3, 0, buf, 200);
 				sprintf(buf, "Explored: %.1f%% (%d/%d rooms)", (float)explored/30.0, explored, 3000);
-				draw_text(3, 11, buf, 200);
+				draw_text(3, 11, 0, buf, 200);
 				sprintf(buf, "Cleared: %.1f%% (%d/%d monsters)", (float)killed_enemies/(float)total_enemies*100.0, killed_enemies, total_enemies);
-				draw_text(3, 19, buf, 200);
+				draw_text(3, 19, 0, buf, 200);
 			}
 			else
 			{
-				draw_text(3, 3, "Reflect shield", (player_gems >= UpgradePrice(0))&&(player_shield!=30) ? (231 + (t%13)*2) : 200);
+				draw_text(3, 3, 0, "Reflect shield", (player_gems >= UpgradePrice(0))&&(player_shield!=30) ? (231 + (t%13)*2) : 200);
 				DrawMeter(121, 3, player_shield);
 			
-				draw_text(3, 11, "Circuit charge", (player_gems >= UpgradePrice(1))&&(circuit_fillrate!=30) ? (231 + (t%13)*2) : 200);
+				draw_text(3, 11, 0, "Circuit charge", (player_gems >= UpgradePrice(1))&&(circuit_fillrate!=30) ? (231 + (t%13)*2) : 200);
 				DrawMeter(121, 11, circuit_fillrate);
 			
-				draw_text(3, 19, "Circuit refill", (player_gems >= UpgradePrice(2))&&(circuit_recoverrate!=30) ? (231 + (t%13)*2) : 200);
+				draw_text(3, 19, 0, "Circuit refill", (player_gems >= UpgradePrice(2))&&(circuit_recoverrate!=30) ? (231 + (t%13)*2) : 200);
 				DrawMeter(121, 19, circuit_recoverrate);
 			}			
 		} else {
-			draw_text(3, 11-6, "Select a checkpoint, press START to", 240);
-			draw_text(3, 11+6, "teleport. SELECT/B - back to game.", 240);
+			draw_text(3, 11-6, 0, "Select a checkpoint, press START to", 240);
+			draw_text(3, 11+6, 0, "teleport. SELECT/B - back to game.", 240);
 		}
 
 		if (!training) {
@@ -1068,7 +1068,7 @@ int DungeonPlay(char *fname)
 
 			}
 			
-			draw_text(SCREEN_W - 26, 4, buf, 200);
+			draw_text(SCREEN_W - 26, 4, 0, buf, 200);
 			
 			DrawRect(SCREEN_W - 26, 13, 24, 4, 240);
 			DrawRect(SCREEN_W - 25, 14, 22, 2, 0);
@@ -1093,7 +1093,7 @@ int DungeonPlay(char *fname)
 			buf[(player_hp+1)/2]=0;
 		}
 		
-		draw_text(SCREEN_W - 26, 18 - (5*training), buf, 200);
+		draw_text(SCREEN_W - 26, 18 - (5*training), 0, buf, 200);
 
 		DrawRect(0, SCREEN_H - 14, SCREEN_W, 14, 0);
 		DrawRect(1, SCREEN_H - 13, SCREEN_W - 2, 12, 32);
@@ -1117,7 +1117,7 @@ int DungeonPlay(char *fname)
 			for (i = 0; i < 10; i++) {
 				DrawRect((SCREEN_W - 6 * 8) / 2 - i, (SCREEN_H - 8) / 2 - i, 6*8 + 2*i, 8 + 2*i, 64 - i*5);
 			}
-			draw_text((SCREEN_W - 6 * 8) / 2, (SCREEN_H - 8) / 2, "Paused", 255);
+			draw_text((SCREEN_W - 6 * 8) / 2, (SCREEN_H - 8) / 2, 0, "Paused", 255);
 			
 			{
 				int t_days;
@@ -1139,15 +1139,15 @@ int DungeonPlay(char *fname)
 						sprintf(buf, "%dm %ds", t_minutes, t_seconds);
 					}
 				}
-				draw_text(636 - strlen(buf)*8, 470, buf, 255);
+				draw_text(636 - strlen(buf)*8, 470, 0, buf, 255);
 			}
 		}
 		
 		if (voluntary_exit) {
 			DrawRect(SCREEN_W/8 - 8, (SCREEN_H - 8) / 2 - 32, -(SCREEN_W/8 - 8) + SCREEN_W - SCREEN_W/8 + 8, 80, 128);
 			DrawRect(SCREEN_W/8, (SCREEN_H - 8) / 2 - 28, -(SCREEN_W/8) + SCREEN_W - SCREEN_W/8, 72, 64);
-			draw_text((SCREEN_W - 30 * 8) / 2, (SCREEN_H - 8) / 2 - 4, "Are you sure you want to quit?", 255);
-			draw_text((SCREEN_W - 23 * 8) / 2, (SCREEN_H - 8) / 2 + 4, "Press START to confirm.", 255);
+			draw_text((SCREEN_W - 30 * 8) / 2, (SCREEN_H - 8) / 2 - 4, 0, "Are you sure you want to quit?", 255);
+			draw_text((SCREEN_W - 23 * 8) / 2, (SCREEN_H - 8) / 2 + 4, 0, "Press START to confirm.", 255);
 		}
 
 		VideoUpdate();
@@ -1280,7 +1280,7 @@ int DungeonPlay(char *fname)
 	
 	if ((player_lives == 0) && (!training)) {
 		SDL_FillRect(screen, NULL, 0);
-		draw_text(SCREEN_W/2 - 68, SCREEN_H/2, "G A M E   O V E R", 255);
+		draw_text(SCREEN_W/2 - 68, SCREEN_H/2, 0, "G A M E   O V E R", 255);
 		VideoUpdate();
 		SDL_Delay(2000);
 	}
@@ -1899,13 +1899,13 @@ void draw_char(int cur_x, int cur_y, int c, Uint8 tcol)
 	}
 }
 
-void draw_text(int x, int y, char *str, Uint8 tcol)
+void draw_text(int x, int y, int right_margin, char *str, Uint8 tcol)
 {
 	int c, cur_x, cur_y;
 	int i;
 	int charInLine;
 	int lastSpace = -1;
-	int lineLen = floor((SCREEN_W - x)/8);
+	int lineLen = floor((SCREEN_W - x - right_margin)/8);
 	char *str_cpy;
 
 	if (str == 0) {
@@ -2071,8 +2071,8 @@ void DrawCircuit()
 		DrawRect(114, SCREEN_H - 7, abs(magic_circuit) * vd / circuit_size, 1, (magic_circuit > 0) ? 255 : 128);
 	}
 	sprintf(buf, "%.1f", fabs((float)magic_circuit / 100.0));
-	draw_text(115, SCREEN_H - 10, buf, 0);
-	draw_text(3, SCREEN_H - 11, "Psi Circuit", 200);
+	draw_text(115, SCREEN_H - 10, 0, buf, 0);
+	draw_text(3, SCREEN_H - 11, 0, "Psi Circuit", 200);
 }
 
 void ReleaseCircuit()
@@ -2694,8 +2694,8 @@ void SpecialTile(int x, int y)
 
 	DrawBorder(strlen(message), (!strlen(message2) ? 1 : 2));
 
-	draw_text(SCREEN_W/2 - strlen(message)*8 / 2, SCREEN_H/5, message, t%16<8 ? 255 : 192);
-	draw_text(SCREEN_W/2 - strlen(message2)*8 / 2, SCREEN_H/5 + 10, message2, t%16<8 ? 255 : 192);
+	draw_text(SCREEN_W/2 - strlen(message)*8 / 2, SCREEN_H/5, 0, message, t%16<8 ? 255 : 192);
+	draw_text(SCREEN_W/2 - strlen(message2)*8 / 2, SCREEN_H/5 + 10, 0, message2, t%16<8 ? 255 : 192);
 	t++;
 	if (enter_pressed) {
 		ActivateTile(tile, x, y);

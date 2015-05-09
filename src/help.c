@@ -171,7 +171,7 @@ void DisplayHelp()
 	if (my_line < 0) my_line = 0;
 	if (my_line >= (current_sec->lines)) my_line = current_sec->lines - 1;
 	for (i = 0; i < 2; i++) {
-		draw_text(23+i - offset_x, 40+(my_cursor - my_line)*10 - offset_y, "->", 255);
+		draw_text(23+i - offset_x, 40+(my_cursor - my_line)*10 - offset_y, 0, "->", 255);
 	}
 
 	for (i = 2; i < 23; i++) {
@@ -182,14 +182,14 @@ void DisplayHelp()
 
 				switch (ltext[0]) {
 					case '!':
-						draw_text((SCREEN_W-strlen(ltext+1)*8)/2, i*10 - offset_y, ltext+1, 255);
+						draw_text((SCREEN_W-strlen(ltext+1)*8)/2, i*10 - offset_y, 0, ltext+1, 255);
 						break;
 					case '?':
 						if (i+4 < 23) {
 							strncpy(c_ident, ltext+1, strchr(ltext+1, '?')-ltext-1);
 							c_ident[strchr(ltext+1, '?')-ltext-1] = 0;
 
-							draw_text(40 - offset_x, 40+i*10 - offset_y, strchr(ltext+1, '?')+1, my_cursor == line_num ? 200+(tick%16)*3 : 150);
+							draw_text(40 - offset_x, 40+i*10 - offset_y, 0, strchr(ltext+1, '?')+1, my_cursor == line_num ? 200+(tick%16)*3 : 150);
 							if ((my_link == 1)&&(my_cursor == line_num)) {
 								follow_link = 1;
 								strcpy(linkfollow, c_ident);
@@ -197,7 +197,7 @@ void DisplayHelp()
 						}
 						break;
 					default:
-						draw_text(40 - offset_x, i*10 - offset_y, ltext, 200);
+						draw_text(40 - offset_x, i*10 - offset_y, 0, ltext, 200);
 						break;
 				}
 			}

@@ -399,7 +399,7 @@ void BossDialog()
 		ypos = 34;
 
 		DrawBorder(40, 16);
-		draw_text(12, ypos+8, dtext[dialog_set][boss_dlg-1].txt, 255);
+		draw_text(12, ypos+8, 8, dtext[dialog_set][boss_dlg-1].txt, 255);
 	}
 }
 
@@ -579,9 +579,9 @@ void DrawBossHP(int bar_length)
 	
 	
 	if ( (current_boss == 3) && (player_shield == 30) ) {
-		draw_text(22, 33, "??????????????", 0);
+		draw_text(22, 33, 0, "??????????????", 0);
 	} else {
-		draw_text(22, 33, boss_names[current_boss], 0);
+		draw_text(22, 33, 0, boss_names[current_boss], 0);
 	}
 }
 
@@ -1597,8 +1597,8 @@ void BC_BossDying()
 				bdef -= 2;
 			} else {
 				if (t_timer < 220) {
-					draw_text(244, 100, "*** Divine Seal ***", 1);
-					draw_text(244, 380, "*** Divine Seal ***", 1);
+					draw_text(244, 100, 0, "*** Divine Seal ***", 1);
+					draw_text(244, 380, 0, "*** Divine Seal ***", 1);
 					magic_circuit = circuit_size * 0.75 * t_timer / 220;
 					for (i = 0; i < 10; i++) {
 						rt = (rand() % 350) + 50;

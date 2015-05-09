@@ -2083,7 +2083,7 @@ void DrawGem(struct diamond *g)
 		SDL_BlitSurface(d_sprite, &draw_pos, screen, &surf_pos);
 	} else {
 		DrawCircle(g->x - scroll_x, g->y - scroll_y, 6, (rand()%64) ^ fxp);
-		draw_text(g->x - 4 - scroll_x, g->y - 4 - scroll_y, hp_icon, (200+rand()%56) ^ fxp);
+		draw_text(g->x - 4 - scroll_x, g->y - 4 - scroll_y, 0, hp_icon, (200+rand()%56) ^ fxp);
 	}
 
 	g->t++;

@@ -217,13 +217,13 @@ void DrawSText(int t)
 			if (c < 0) c = 0;
 			if (c > 255) c = 255;
 			
-			draw_text(68, 150+i*12, SText[i], 255-c);
+			draw_text(68, 150+i*12, 0, SText[i], 255-c);
 		}
 	} else {
 		for (i = 0; i < 15; i++) {
 			c = 5 + (t-300) * 5;
 			
-			draw_text(68, 150+i*12, SText[i], 255-c);
+			draw_text(68, 150+i*12, 0, SText[i], 255-c);
 		}
 	}
 	
@@ -250,13 +250,13 @@ void DrawSTextV(int t)
 			if (c < 0) c = 0;
 			if (c > 255) c = 255;
 			
-			draw_text(68, 150+i*12, STextV[i], 255-c);
+			draw_text(68, 150+i*12, 0, STextV[i], 255-c);
 		}
 	} else {
 		for (i = 0; i < 15; i++) {
 			c = 5 + (t-300) * 5;
 			
-			draw_text(68, 150+i*12, STextV[i], 255-c);
+			draw_text(68, 150+i*12, 0, STextV[i], 255-c);
 		}
 	}
 	
@@ -346,7 +346,7 @@ void DrawCredits()
 			
 			if ((ypos >= 0)&&(ypos < 480)) {
 				c = 255 - abs(ypos - 240);
-				draw_text(120, ypos, credits[i], c);
+				draw_text(120, ypos, 0, credits[i], c);
 			}
 		}
 		
@@ -549,9 +549,9 @@ void DrawPText(int t)
 			if (c > 255) c = 255;
 			
 			if (player_shield != 30) {
-				draw_text(68, 180+i*12, PText[i], c);
+				draw_text(68, 180+i*12, 0, PText[i], c);
 			} else {
-				draw_text(68, 180+i*12, PTextV[i], c);
+				draw_text(68, 180+i*12, 0, PTextV[i], c);
 			}
 		}
 	} else {
@@ -559,9 +559,9 @@ void DrawPText(int t)
 			c = 5 + (t-300) * 5;
 			
 			if (player_shield != 30) {
-				draw_text(68, 180+i*12, PText[i], c);
+				draw_text(68, 180+i*12, 0, PText[i], c);
 			} else {
-				draw_text(68, 180+i*12, PTextV[i], c);
+				draw_text(68, 180+i*12, 0, PTextV[i], c);
 			}
 		}
 	}
