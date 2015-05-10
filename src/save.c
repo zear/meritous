@@ -63,7 +63,7 @@ void freeHomeDir()
 	if(homeDir != NULL)
 	{
 		free(homeDir);
-		homeDir == NULL;
+		homeDir = NULL;
 	}
 }
 
