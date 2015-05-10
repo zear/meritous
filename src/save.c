@@ -42,9 +42,6 @@ char *homeDir = NULL;
 gzFile Filefp;
 int game_load = 0;
 
-unsigned char lchar;
-int fpos = 0;
-
 void getHomeDir()
 {
 #if defined(WITH_HOME_DIR)
@@ -72,92 +69,73 @@ void freeHomeDir()
 
 void FWChar(unsigned char i)
 {
-	unsigned char c;
-	c = i;
-	c ^= 0x55;
-	c ^= fpos & 0xFF;
-	lchar = c;
-	fpos++;
-	gzputc(Filefp, c);
+	gzputc(Filefp, i);
 }
 
 unsigned char FRChar()
 {
-	unsigned char c;
-	c = gzgetc(Filefp);
-	c ^= 0x55;
-	c ^= fpos & 0xFF;
-
-	lchar = c;
-	fpos++;
-	return c;
+	return gzgetc(Filefp);
 }
 
 void FWInt(int val)
 {
-	int i, s;
-	i = abs(val);
-	s = (val >= 0) ? 0 : 1;
+	unsigned char data[sizeof(int) * 2];
+	size_t byte_count = 0;
+	int sign = val < 0;
 
-	FWChar((i & 0xFF) >> 0);
-	FWChar((i & 0xFF00) >> 8);
-	FWChar((i & 0xFF0000) >> 16);
-	FWChar((i & 0xFF000000) >> 24);
+	/* Little-endian (least significant bits first) groups of 7 bits with the
+	 * high bit set to indicate continuation bytes that are worth 128 times
+	 * more than the previous byte. The last byte has 6 useful bits, bit 7
+	 * unset, and bit 6 is set if the number is negative (< 0), otherwise
+	 * unset (>= 0). */
 
-	FWChar(s);
-}
+	if (sign) val = -val;
 
-void FWFloat(float i)
-{
-	int num;
-	int frac;
+	while (val >= 128) {
+		data[byte_count++] = 0x80 | (val & 0x7F);
+		val >>= 7;
+	}
 
-	num = (int)(floorf(i));
-	FWInt(num);
-	frac = (int)((i - (float)num)*2147483647.0);
+	if (val >= 64) {
+		/* The last byte would need to represent 7 bits, but it may only
+		 * represent 6, the sign bit, and the ending marker. We must put 7
+		 * bits into one byte, then make another with 6 unset bits and the
+		 * ending marker stuff. */
+		data[byte_count++] = 0x80 | (val & 0x7F);
+		data[byte_count++] = sign << 6;
+	} else {
+		data[byte_count++] = (sign << 6) | (val & 0x3F);
+	}
 
-	FWInt(frac);
+	gzwrite(Filefp, data, byte_count);
 }
 
 int FRInt()
 {
-	int val;
-	int i, s;
+	int val = 0;
+	int bit_count = 0;
+	unsigned char c;
 
-	i = FRChar();
-	i |= FRChar() << 8;
-	i |= FRChar() << 16;
-	i |= FRChar() << 24;
-	s = FRChar();
-	val = i * (s?-1:1);
+	while (((c = gzgetc(Filefp)) & 0x80) && bit_count < sizeof(int) * 8) {
+		val |= (c & 0x7F) << bit_count;
+		bit_count += 7;
+	}
+
+	if (c & 0x80) {
+		fprintf(stderr, "An integer in the save file is too large for this system\nAborting\n");
+		exit(2);
+	}
+
+	val |= (c & 0x3F) << bit_count;
+	if (c & 0x40) val = -val;
 
 	return val;
 }
 
-float FRFloat()
-{
-	float i;
-	int num;
-	int frac;
-
-	double f_frac;
-
-	num = FRInt();
-	frac = FRInt();
-
-	f_frac = (double)frac / 2147483647.0;
-
-	i = (float)num + (float)f_frac;
-	return i;
-}
-
 void SaveGame(char *filename)
 {
-	lchar = 0x7c;
-	fpos = 0;
-
-	Filefp = gzopen(filename, "wb9");
-	FWChar(0x7C);
+	Filefp = gzopen(filename, "wb4");
+	FWChar(0x7E);
 	WriteMapData();
 	WriteCreatureData();
 	WritePlayerData();
@@ -168,8 +146,6 @@ void SaveGame(char *filename)
 void LoadGame(char *filename)
 {
 	unsigned char parity;
-	fpos = 0;
-	lchar = 0x7c;
 #if defined(WITH_HOME_DIR)
 	char filePath[50];
 
@@ -187,8 +163,8 @@ void LoadGame(char *filename)
 	Filefp = gzopen(filename, "rb");
 #endif
 	parity = FRChar();
-	if (parity != 0x7C) {
-		fprintf(stderr, "Parity byte in error (%x != 0x7C)\nAborting\n", parity);
+	if (parity != 0x7E) {
+		fprintf(stderr, "Parity byte in error (%x != 0x7E)\nAborting\n", parity);
 		exit(2);
 	}
 	game_load = 1;
