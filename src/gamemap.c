@@ -246,8 +246,8 @@ void DisplayAutomap()
 			if ((rx >= 0)&&(ry >= 0)&&(rx < 512)&&(ry < 512)) {
 				if (rooms[GetRoom(rx, ry)].visited) {
 					tile = Get(rx, ry);
-					if (tele_select && (nearest_checkpoint == GetRoom(rx, ry)) && ((t / 3) % 2)) {
-						xcol = 255;
+					if (tele_select && (nearest_checkpoint >= 0) && (nearest_checkpoint == GetRoom(rx, ry)) && ((t / 3) % 2)) {
+								xcol = 255;
 					}
 					col = automap_cols[TileData[tile].Type];
 					DrawRect(df_x, df_y, 8, 8, col ^ xcol);
