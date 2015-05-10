@@ -204,7 +204,7 @@ void DisplayHelp()
 		}
 	}
 	tick++;
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
+	SDL_Flip(screen);
 
 	if (follow_link) {
 		for (i = 0; i < hlp->sections; i++) {
