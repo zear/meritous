@@ -609,31 +609,35 @@ int main(int argc, char **argv)
 			SDL_FreeSurface(title_pr);
 			if ((option == 0) && can_continue) {
 				DungeonPlay("SaveFile.sav");
-			} else {
-				if (option == (0 + can_continue)) {
-					training = 0;
-					DungeonPlay("");
-				} else if(option == (1 + can_continue)) {
-					training = 1;
-					DungeonPlay("");
-				}
-				else if(option == (2 + can_continue)) {
-					CancelVoluntaryExit();
-					ShowHelp();
-				}
-				else	// "quit" pressed
-				{
-					executable_running = 0;
-					on_title = 0;
-					freeHomeDir();
-					SDL_Quit();
-					exit(0);
-				}
 			}
+			else if (option == (0 + can_continue)) {
+				training = 0;
+				DungeonPlay("");
+			}
+			else if(option == (1 + can_continue)) {
+				training = 1;
+				DungeonPlay("");
+			}
+			else if(option == (2 + can_continue)) {
+				CancelVoluntaryExit();
+				ShowHelp();
+			}
+			else	// "quit" pressed
+			{
+				executable_running = 0;
+				on_title = 0;
+				freeHomeDir();
+				SDL_Quit();
+				exit(0);
+			}
+
 			// clean up
 			ClearInput();
-			DestroyDungeon();
-			DestroyThings();
+			if(option != (2 + can_continue))
+			{
+				DestroyDungeon();
+				DestroyThings();
+			}
 			on_title = 1;
 			game_load = 0;
 			
