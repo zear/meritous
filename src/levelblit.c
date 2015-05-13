@@ -1910,6 +1910,7 @@ void draw_text(int x, int y, int right_margin, char *str, Uint8 tcol)
 	int lastSpace = -1;
 	int lineLen = floor((SCREEN_W - x - right_margin)/8);
 	char *str_cpy;
+	char *iter;
 
 	if (str == 0) {
 		return;
@@ -1955,8 +1956,10 @@ void draw_text(int x, int y, int right_margin, char *str, Uint8 tcol)
 		}
 	}
 
-	while (*str_cpy != 0) {
-		c = *(str_cpy++);
+	iter = str_cpy;
+
+	while (*iter != 0) {
+		c = *(iter++);
 		if (c == '\n') {
 			cur_x = x;
 			cur_y+=10;
@@ -1965,6 +1968,8 @@ void draw_text(int x, int y, int right_margin, char *str, Uint8 tcol)
 			cur_x+=8;
 		}
 	}
+
+	free(str_cpy);
 }
 
 void draw_text_ex(int x, int y, char *str, Uint8 tcol, SDL_Surface *srf)
