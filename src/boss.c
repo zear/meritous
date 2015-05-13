@@ -374,7 +374,6 @@ struct dlg_box dtext[5][12] =
 void BossDialog()
 {
 	int ypos;
-	int lines;
 	int dialog_set;
 
 	dialog_set = current_boss;
@@ -385,7 +384,6 @@ void BossDialog()
 		}
 	}
 	
-	lines = dtext[dialog_set][boss_dlg-1].lines;
 	if (enter_pressed) {
 		if (dtext[dialog_set][boss_dlg-1].last) {
 			boss_dlg = 0;
@@ -1017,7 +1015,7 @@ void BC_BossCombat()
 				}
 				case 1: {
 					int laser_dmg;
-					float laser_1_dir, laser_2_dir, laser_3_dir;
+					float laser_1_dir, laser_2_dir;
 					
 					laser_dmg = (rand()%(player_shield/2+1))/2;
 					for (i = 0; i < player_shield / 4 + 1; i++) {
@@ -1027,7 +1025,6 @@ void BC_BossCombat()
 					}
 					laser_1_dir = pdir + 0.4 + sin((float)t / 8)*0.3;
 					laser_2_dir = pdir - 0.4 + sin((float)t / 8)*0.3;
-					laser_3_dir = RandomDir();
 					SpawnLaser(boss_x + pdir_x * 24, boss_y + pdir_y * 8, laser_1_dir, 0, 1, 0, laser_dmg);
 					SpawnLaser(boss_x + pdir_x * 24, boss_y + pdir_y * 8, laser_2_dir, 0, 1, 0, laser_dmg);
 					if ((t % 5) == 0)

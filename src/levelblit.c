@@ -74,6 +74,7 @@ void DrawCircle(int x, int y, int r, unsigned char c);
 
 void DrawArtifacts();
 
+void CancelVoluntaryExit();
 void ReleaseHeldKeys();
 void HandleEvents();
 
@@ -235,7 +236,6 @@ void SetTitlePalette(int curve_start, int curve_end);
 void SetTitlePalette2(int t);
 int TouchTile(int ix, int iy);
 void SpecialTile(int x, int y);
-void DrawBorder(int len, int lines);
 void DrawRect(int x, int y, int w, int h, unsigned char c);
 
 void DrawCircleEx(int x, int y, int r, int r2, unsigned char c);
@@ -392,7 +392,6 @@ int main(int argc, char **argv)
 	Uint8 *src_p, *col_p;
 	Uint8 wm_mask[128];
 	int i;
-	int light = 0;
 	int x, y;
 	int pulse[SCREEN_W * SCREEN_H];
 	int precalc_sine[400];
@@ -598,7 +597,6 @@ int main(int argc, char **argv)
 			
 			EndCycle(10);
 	
-			light = 0;
 			tick -= 2;
 		}
 		
@@ -2571,7 +2569,6 @@ void SpecialTile(int x, int y)
 	unsigned char tile;
 	char message[100] = "";
 	char message2[100] = "";
-	char message3[100] = "";
 
 	tile = Get(x, y);
 	switch (tile) {
@@ -2713,7 +2710,6 @@ void SpecialTile(int x, int y)
 
 void ScrollTo(int x, int y)
 {
-	static int scrollspeed_x = 1, scrollspeed_y = 1;
 	if (scroll_home == 0) {
 		scroll_x = x;
 		scroll_y = y;
@@ -2721,8 +2717,6 @@ void ScrollTo(int x, int y)
 	}
 
 	if (scroll_home == 1) {
-		scrollspeed_x = (x - scroll_x)/20;
-		scrollspeed_y = (y - scroll_y)/20;
 		scroll_home = 2;
 	}
 
