@@ -1594,8 +1594,8 @@ void BC_BossDying()
 				bdef -= 2;
 			} else {
 				if (t_timer < 220) {
-					draw_text(244, 100, 0, "*** Divine Seal ***", 1);
-					draw_text(244, 380, 0, "*** Divine Seal ***", 1);
+					draw_text(SCREEN_W/2 - 76, 100, 0, "*** Divine Seal ***", 1);
+					draw_text(SCREEN_W/2 - 76, SCREEN_H - 100, 0, "*** Divine Seal ***", 1);
 					magic_circuit = circuit_size * 0.75 * t_timer / 220;
 					for (i = 0; i < 10; i++) {
 						rt = (rand() % 350) + 50;
@@ -1748,20 +1748,15 @@ void DrawArtifactOverhead(int p_obj)
 	p_x = player_x - 8;
 	p_y = player_y - 36 + sin((float)tick / 20.0)*4;
 
-/*	
+	
 	from.x = (8 + p_obj) * 32;
 	from.y = 0;
 	from.w = 32;
 	from.h = 32;
-*/
-	from.x = (8 + p_obj) * 16;
-	from.y = 0;
-	from.w = 16;
-	from.h = 16;
 	
 	to.x = p_x - scroll_x;
 	to.y = p_y - scroll_y;
-	SDL_BlitSurface(artifact_spr, &from, screen, &to);
+	SDL_BlitSurface(artifact_spr_large, &from, screen, &to);
 
 	
 	tick++;
