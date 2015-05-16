@@ -34,6 +34,7 @@
 void DrawScrolly(int t);
 void DrawPText(int t);
 void DrawSText(int t);
+void DrawSTextPartTwo(int t);
 void DrawSTextV(int t);
 void DrawCircuitFlash(int t, int method);
 void DrawStream(int t);
@@ -85,7 +86,7 @@ int EndingEvents()
 void ShowEnding()
 {
 	int i;
-	
+
 	if (streamspr == NULL) {
 		streamspr = IMG_Load("dat/i/stream.png");
 		SDL_SetColorKey(streamspr, SDL_SRCCOLORKEY | SDL_RLEACCEL, 0);
@@ -144,6 +145,11 @@ void ShowEnding()
 			EndCycle(0);
 			if (EndingEvents()) return;
 		}
+		for (i = 0; i < 500; i++) {
+			DrawSTextPartTwo(i);
+			EndCycle(0);
+			if (EndingEvents()) return;
+		}
 	} else {
 		for (i = 0; i < 250; i++) {
 			DrawStream(i);
@@ -166,36 +172,36 @@ void ShowEnding()
 }
 
 char *SText[15] = {	"Merit released the locks on the PSI flowing through the Dome,",
-					"releasing the flow of PSI into the atmosphere.",
-					"",
-					"The Orcus Dome was originally built to centralise the limited",
-					"PSI available to everyone. However, this made the existing",
-					"reserves more vulnerable to malicious PSI users",
-					"",
-					"While other PSI users initially resented Merit for his rash",
-					"behaviour, they eventually adjusted to the decentralisation.",
-					"",
-					"Eventually, PSI users grew so adept at manipulating the",
-					"diluted flows of PSI that they were capable of the same things",
-					"as before. Each PSI user would keep their own individual",
-					"reserves of PSI for when they needed to weild greater power,",
-					"and the balance of power was restored." };
-					
-char *STextV[15] = {"Merit decided to assume the role of custodian over the Orcus",
-					"Dome, in Wervyn Anixil's place. He resumed the experiments on",
-					"PSI and found ways of making the Dome's remaining supply go as",
-					"far as it could.",
-					"",
-					"Other PSI users were suspicious of MERIT, just as they were",
-					"wary of Wervyn Anixil before him, but they soon adjusted.",
-					"",
-					"The balance of power was quickly restored, and stabilised for",
-					"eternity due to the work of Wervyn Anixil and now MERIT.",
-					"",
-					"",
-					"                      [[ BEST ENDING ]]",
-					"",
-					""};
+			"releasing the flow of PSI into the atmosphere.",
+			"",
+			"The Orcus Dome was originally built to centralise the limited",
+			"PSI available to everyone. However, this made the existing",
+			"reserves more vulnerable to malicious PSI users",
+			"",
+			"While other PSI users initially resented Merit for his rash",
+			"behaviour, they eventually adjusted to the decentralisation.",
+			"",
+			"Eventually, PSI users grew so adept at manipulating the",
+			"diluted flows of PSI that they were capable of the same things",
+			"as before. Each PSI user would keep their own individual",
+			"reserves of PSI for when they needed to weild greater power,",
+			"and the balance of power was restored." };
+			
+char *STextV[15] = {	"Merit decided to assume the role of custodian over the Orcus",
+			"Dome, in Wervyn Anixil's place. He resumed the experiments on",
+			"PSI and found ways of making the Dome's remaining supply go as",
+			"far as it could.",
+			"",
+			"Other PSI users were suspicious of MERIT, just as they were",
+			"wary of Wervyn Anixil before him, but they soon adjusted.",
+			"",
+			"The balance of power was quickly restored, and stabilised for",
+			"eternity due to the work of Wervyn Anixil and now MERIT.",
+			"[[ BEST ENDING ]]",
+			"",
+			"",
+			"",
+			""};
 
 void DrawSText(int t)
 {
@@ -205,31 +211,65 @@ void DrawSText(int t)
 	int cl = 350 - t;
 	
 	for (i = 0; i < 64; i++) {
-		DrawRect(0, i * 15 - offset, 640, 15, (64 - i) * cl / 350);
+		DrawRect(0, i * 15 - offset, SCREEN_W, 15, (64 - i) * cl / 350);
 	}
 	for (i = 64; i < 128; i++) {
-		DrawRect(0, i * 15 - offset, 640, 15, (i - 64) * cl / 350);
+		DrawRect(0, i * 15 - offset, SCREEN_W, 15, (i - 64) * cl / 350);
 	}
 	
 	if (t < 300) {
-		for (i = 0; i < 15; i++) {
+		for (i = 0; i < 10; i++) {
 			c = (255 + (i * 100) - t*10);
 			if (c < 0) c = 0;
 			if (c > 255) c = 255;
 			
-			draw_text(68, 150+i*12, 0, SText[i], 255-c);
+			draw_text(10, 20+i*20, 0, SText[i], 255-c);
 		}
 	} else {
-		for (i = 0; i < 15; i++) {
+		for (i = 0; i < 10; i++) {
 			c = 5 + (t-300) * 5;
 			
-			draw_text(68, 150+i*12, 0, SText[i], 255-c);
+			draw_text(10, 20+i*20, 0, SText[i], 255-c);
 		}
 	}
 	
 	UpdatePalette();
 	VideoUpdate();
 }
+
+void DrawSTextPartTwo(int t)
+{
+	int offset = 540 + (t / 2);
+	int i, c;
+	t = t * 350 / 500;
+	
+	for (i = 0; i < 64; i++) {
+		DrawRect(0, i * 15 - offset, SCREEN_W, 15, 0);
+	}
+	for (i = 64; i < 128; i++) {
+		DrawRect(0, i * 15 - offset, SCREEN_W, 15, 0);
+	}
+	
+	if (t < 300) {
+		for (i = 10; i < 15; i++) {
+			c = (255 + (i * 100) - t*10);
+			if (c < 0) c = 0;
+			if (c > 255) c = 255;
+			
+			draw_text(10, 20+(i-10)*20, 0, SText[i], 255-c);
+		}
+	} else {
+		for (i = 10; i < 15; i++) {
+			c = 5 + (t-300) * 5;
+			
+			draw_text(10, 20+(i-10)*20, 0, SText[i], 255-c);
+		}
+	}
+	
+	UpdatePalette();
+	VideoUpdate();
+}
+
 void DrawSTextV(int t)
 {
 	int offset = 540 + (t / 2);
@@ -238,10 +278,10 @@ void DrawSTextV(int t)
 	int cl = 350 - t;
 	
 	for (i = 0; i < 64; i++) {
-		DrawRect(0, i * 15 - offset, 640, 15, (64 - i) * cl / 350);
+		DrawRect(0, i * 15 - offset, SCREEN_W, 15, (64 - i) * cl / 350);
 	}
 	for (i = 64; i < 128; i++) {
-		DrawRect(0, i * 15 - offset, 640, 15, (i - 64) * cl / 350);
+		DrawRect(0, i * 15 - offset, SCREEN_W, 15, (i - 64) * cl / 350);
 	}
 	
 	if (t < 300) {
@@ -250,13 +290,13 @@ void DrawSTextV(int t)
 			if (c < 0) c = 0;
 			if (c > 255) c = 255;
 			
-			draw_text(68, 150+i*12, 0, STextV[i], 255-c);
+			draw_text(10, 20+i*20, 0, STextV[i], 255-c);
 		}
 	} else {
 		for (i = 0; i < 15; i++) {
 			c = 5 + (t-300) * 5;
 			
-			draw_text(68, 150+i*12, 0, STextV[i], 255-c);
+			draw_text(10, 20+i*20, 0, STextV[i], 255-c);
 		}
 	}
 	
@@ -276,7 +316,7 @@ void InitParticleStorm()
 	int i;
 	
 	for (i = 0; i < 500; i++) {
-		pt_x[i] = 320;
+		pt_x[i] = SCREEN_W/2;
 		pt_y[i] = 960;
 		pt_vx[i] = (float)(rand()%101) / 33.333 - 1.5;
 		pt_vy[i] = (float)(rand()%101) / 10.0 - 16.1;
@@ -285,28 +325,16 @@ void InitParticleStorm()
 }
 
 char *credits[] = {
-	"Concept:                    Lancer-X/Asceai",
-	"Game design:                Lancer-X/Asceai",
-	"Graphics:                   Lancer-X/Asceai",
-	"Programming:                Lancer-X/Asceai",
-	"Sound Effects:              Various (public domain) sources",
-	"Music:                      Various artists",
-	"Beta testing:               Quasar",
-	"Beta testing:               Terryn",
-	"Beta testing:               Wervyn"
-	 "\"Ambient Light\"       Vogue of Triton"
-	 "\"Battle of Ragnarok\"  Frostbite"
-	 "\"Dragon Cave\"         TICAZ"
-	 " cavern.xm             Unknown"
-	 "\"Caverns Boss\"        Alexis Janson"
-	 "\"Forest Boss\"         Alexis Janson"
-	 "\"Catacombs Boss\"      Alexis Janson"
-	 "\"Fear 2\"              Mick Rippon"
-	 "\"The Final Battle\"    Goose/CéDA & iNVASiON"
-	 "\"Ice Frontier\"        Skaven/FC"
-	 "\"KnarkLoader 1.0\"     Rapacious"
-	 "\"RPG-Battle\"          Cyn"
-	 "\"Metallic Forest\"     Joseph Fox"
+	"Concept:\nLancer-X/Asceai",
+	"Game design:\nLancer-X/Asceai",
+	"Graphics:\nLancer-X/Asceai",
+	"Programming:\nLancer-X/Asceai",
+	"Sound Effects:\nVarious (public domain) sources",
+	"Beta testing:\nQuasar",
+	"Beta testing:\nTerryn",
+	"Beta testing:\nWervyn",
+	"GCW Zero port:\nZear",
+	"With additional patches by:\nNebuleon & David Knight"
 };
 
 void DrawCredits()
@@ -346,7 +374,7 @@ void DrawCredits()
 			
 			if ((ypos >= 0)&&(ypos < 480)) {
 				c = 255 - abs(ypos - 240);
-				draw_text(120, ypos, 0, credits[i], c);
+				draw_text(60, ypos, 0, credits[i], c);
 			}
 		}
 		
@@ -403,7 +431,7 @@ void RunParticleStorm(int offset)
 	int i;
 	
 	for (i = 0; i < 64; i++) {
-		DrawRect(0, i * 15 - offset, 640, 15, 64 - i);
+		DrawRect(0, i * 15 - offset, SCREEN_W, 15, 64 - i);
 	}
 	
 	for (i = 0; i < 500; i++) {
@@ -464,9 +492,9 @@ void DrawStream(int t)
 		scr_y = (20 - t * 2);
 	}
 	
-	DrawLevel(scr_x, scr_y, 0, 0);
-	DrawPlayer(344 - scr_x, 228 - scr_y, 0, 0);
-	
+	DrawLevel(scr_x + SCREEN_W/2, scr_y, 0, 0);
+	DrawPlayer(344 - scr_x - SCREEN_W/2, scr_y + SCREEN_H/2 + SCREEN_H/4, 0, 0);
+
 	for (i = 0; i < 7; i++) {
 		strm_scrl = (t * 20) % 128;
 		draw_to.x = 0 - strm_scrl - scr_x + (128*i);
@@ -486,7 +514,7 @@ void DrawStream(int t)
 		draw_from.w = 32;
 		draw_from.h = 32;
 	
-		draw_to.x = rand()%(640+32)-32;
+		draw_to.x = rand()%(SCREEN_W+32)-32;
 		draw_to.y = (rand()%(124)) + 3;
 		
 		SDL_BlitSurface(glitter, &draw_from, screen, &draw_to);
@@ -497,9 +525,9 @@ void DrawStream(int t)
 			if (t == 251) {
 				SND_CircuitRelease(1000);
 			}
-			DrawCircle(320+32 - scr_x, 240 - scr_y, (t - 254) * 10, 255);
-			DrawCircle(320+32 - scr_x, 240 - scr_y, (t - 252) * 10, 225);
-			DrawCircle(320+32 - scr_x, 240 - scr_y, (t - 250) * 10, 195);
+			DrawCircle(344 - scr_x - SCREEN_W/2 + 8, scr_y + SCREEN_H/2 + SCREEN_H/4 + 12, (t - 254) * 10, 255);
+			DrawCircle(344 - scr_x - SCREEN_W/2 + 8, scr_y + SCREEN_H/2 + SCREEN_H/4 + 12, (t - 252) * 10, 225);
+			DrawCircle(344 - scr_x - SCREEN_W/2 + 8, scr_y + SCREEN_H/2 + SCREEN_H/4 + 12, (t - 250) * 10, 195);
 		}
 	}
 	
@@ -508,25 +536,25 @@ void DrawStream(int t)
 }
 
 char *PText[10] = {	"Activating the seal quickly unblocked the ley lines and allowed",
-					"PSI to flow through the Dome again. The remaining shadows were",
-					"quickly flushed out.",
-					"",
-					"Wervyn Anixil's unconventional use of the PSI resulted in him",
-					"being burned out and rendered powerless. Merit will see to it",
-					"that he faces judgement for his crimes.",
-					"",
-					"Neither of the two PSI weapons housed within the Dome had been",
-					"touched. However . . ." };
+			"PSI to flow through the Dome again. The remaining shadows were",
+			"quickly flushed out.",
+			"",
+			"Wervyn Anixil's unconventional use of the PSI resulted in him",
+			"being burned out and rendered powerless. Merit will see to it",
+			"that he faces judgement for his crimes.",
+			"",
+			"Neither of the two PSI weapons housed within the Dome had been",
+			"touched. However . . ." };
 char *PTextV[10] ={	"Activating the seal quickly unblocked the ley lines and allowed",
-					"PSI to flow through the Dome again. The remaining shadows were",
-					"quickly flushed out.",
-					"",
-					"The traitor, who was never identified, perished in the Sealing.",
-					"It soon became clear that the traitor had managed to betray and",
-					"kill the real Wervyn Anixil during his experiments on the PSI.",
-					"If the Agate Knife was never found, nobody would have been any",
-					"the wiser, and things could have turned out very differently.",
-					"However, there was one last thing for MERIT to do."};
+			"PSI to flow through the Dome again. The remaining shadows were",
+			"quickly flushed out.",
+			"",
+			"The traitor, who was never identified, perished in the Sealing.",
+			"It soon became clear that the traitor had managed to betray and",
+			"kill the real Wervyn Anixil during his experiments on the PSI.",
+			"If the Agate Knife was never found, nobody would have been any",
+			"the wiser, and things could have turned out very differently.",
+			"However, there was one last thing for MERIT to do."};
 
 void DrawPText(int t)
 {
@@ -540,32 +568,7 @@ void DrawPText(int t)
 		ending_pal[i].g = i;
 		ending_pal[i].b = (i * 3 / 4) + 64;
 	}
-	
-	if (t < 300) {
-	
-		for (i = 0; i < 10; i++) {
-			c = (255 + (i * 100) - t*10);
-			if (c < 0) c = 0;
-			if (c > 255) c = 255;
-			
-			if (player_shield != 30) {
-				draw_text(68, 180+i*12, 0, PText[i], c);
-			} else {
-				draw_text(68, 180+i*12, 0, PTextV[i], c);
-			}
-		}
-	} else {
-		for (i = 0; i < 10; i++) {
-			c = 5 + (t-300) * 5;
-			
-			if (player_shield != 30) {
-				draw_text(68, 180+i*12, 0, PText[i], c);
-			} else {
-				draw_text(68, 180+i*12, 0, PTextV[i], c);
-			}
-		}
-	}
-	
+
 	for (i = 0; i < (32 * 8); i++) {
 		x = (i % 32)*20;
 		y = (i / 32)*20;
@@ -576,6 +579,30 @@ void DrawPText(int t)
 		DrawRect(x, 460 - y, 20, 20, c);
 	}
 	
+	if (t < 300) {
+	
+		for (i = 0; i < 10; i++) {
+			c = (255 + (i * 100) - t*10);
+			if (c < 0) c = 0;
+			if (c > 255) c = 255;
+			
+			if (player_shield != 30) {
+				draw_text(10, 20+i*20, 0, PText[i], c);
+			} else {
+				draw_text(10, 20+i*20, 0, PTextV[i], c);
+			}
+		}
+	} else {
+		for (i = 0; i < 10; i++) {
+			c = 5 + (t-300) * 5;
+			
+			if (player_shield != 30) {
+				draw_text(10, 20+i*20, 0, PText[i], c);
+			} else {
+				draw_text(10, 20+i*20, 0, PTextV[i], c);
+			}
+		}
+	}
 	
 	UpdatePalette();
 	VideoUpdate();
@@ -620,8 +647,8 @@ void DrawScrolly(int t)
 	v_radius = sin((float)t / 10.0)*20 + 100;
 	
 	for (i = 0; i < 5; i++) {
-		x = rand()%640;
-		y = rand()%480;
+		x = rand()%SCREEN_W;
+		y = rand()%SCREEN_H;
 		r = rand()%500+100;
 		
 		DrawCircleEx(x, y, r+2, r-4, 128);
@@ -637,12 +664,12 @@ void DrawScrolly(int t)
 		a_dir = ((float)t / 10.0) + (M_PI*(float)i/2);
 		
 		for (j = 10; j >= 0; j--) {
-			DrawCircleEx(320+cos(a_dir)*v_radius, 240+sin(a_dir)*v_radius, 22 + j * 2, 0, abs(j-3) * 15);
+			DrawCircleEx(SCREEN_W/2+cos(a_dir)*v_radius, SCREEN_H/2+sin(a_dir)*v_radius, 22 + j * 2, 0, abs(j-3) * 15);
 		}
-		DrawCircleEx(320+cos(a_dir)*v_radius, 240+sin(a_dir)*v_radius, 20, 0, 0);
+		DrawCircleEx(SCREEN_W/2+cos(a_dir)*v_radius, SCREEN_H/2+sin(a_dir)*v_radius, 20, 0, 0);
 		
-		draw_to.x = 320 + cos(a_dir) * v_radius - 16;
-		draw_to.y = 240 + sin(a_dir) * v_radius - 16;
+		draw_to.x = SCREEN_W/2 + cos(a_dir) * v_radius - 16;
+		draw_to.y = SCREEN_H/2 + sin(a_dir) * v_radius - 16;
 		SDL_BlitSurface(artifact_spr, &draw_from, screen, &draw_to);
 	}
 	
@@ -663,18 +690,18 @@ void DrawCircuitFlash(int t, int method)
 	
 	if (t == 0) {
 		if (method == 0) {
-			xpos = rand()%641;
-			ypos = rand()%481;
+			xpos = rand()%(641/2);
+			ypos = rand()%(481/2);
 		} else {
-			xpos = 320;
-			ypos = 240;
+			xpos = SCREEN_W/2;
+			ypos = SCREEN_H/2;
 		}
 	}
 	
 	from.x = xpos;
 	from.y = ypos;
-	from.w = 640;
-	from.h = 480;
+	from.w = SCREEN_W;
+	from.h = SCREEN_H;
 	
 	SDL_BlitSurface(circ, &from, screen, NULL);
 	

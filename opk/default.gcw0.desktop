@@ -6,4 +6,5 @@ Terminal=false
 Type=Application
 StartupNotify=true
 Icon=meritous
+X-OD-Manual=readme.man.txt
 Categories=games;

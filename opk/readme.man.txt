@@ -1,6 +1,13 @@
+[About]
 MERITOUS v 1.2
-for Windows 98/2K/XP/other operating systems
-by Lancer-X/ASCEAI
+for GCW Zero
+Release #1
+
+Original game by Lancer-X/ASCEAI.
+GCW Zero port by Zear.
+Additional patches by Nebuleon & David Knight.
+
+[Story]
 
 Far below the surface of the planet is a secret.     
 A place of limitless power. Those that seek to
@@ -11,10 +18,7 @@ Seeking an end to the troubles that plague him,
 PSI user MERIT journeys into the hallowed Orcus
 Dome in search of answers.
 
-
-INSTALLATION:
-
-Run Meritous.exe after extraction and everything should work correctly.
+[Usage]
 
 If the game is too difficult for you, you can play in 'Wuss mode' for
 a far more sombre gaming experience.
@@ -22,24 +26,23 @@ a far more sombre gaming experience.
 
 BASIC CONTROLS:
 
-Arrow keys - Move around. To walk through doors, simply walk up to
-             them and push against them.
+D-PAD/JOY - Move around. To walk through doors, simply walk up to
+them and push against them.
 
-Space      - Charge your PSI circuit for attacking.
+A - Charge your PSI circuit.
 
-Escape     - Exit the game.
+L - View the map (you can then use the D-PAD/JOY to scroll
+around the map.
 
-H          - View the help file.
+R - View the help file.
 
-Tab        - View the map (you can then use the arrow keys to scroll
-             around the map.
+START - Activate a trigger tile that you are standing on.
+START is also used for various other things, such as
+for reading in-game dialogue.
 
-Enter      - Activate a trigger tile that you are standing on.
-             Enter is also used for various other things, such as
-             for reading in-game dialogue.
-             
-P          - Pause the game.
+SELECT - Pause/Exit the game.
 
+[Comments & Acknowledgements]
 
 COMMENTS:
 

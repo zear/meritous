@@ -128,16 +128,16 @@ them and push against them.
 
 A - Charge your PSI circuit.
 
-Y - View the map (you can then use the D-PAD/JOY to scroll
+L - View the map (you can then use the D-PAD/JOY to scroll
 around the map.
+
+R - View the help file.
 
 START - Activate a trigger tile that you are standing on.
 START is also used for various other things, such as
 for reading in-game dialogue.
 
 SELECT - Pause/Exit the game.
-
-X - View the help file.
 
 ?default?Return to top
 :dungeon
