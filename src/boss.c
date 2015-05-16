@@ -913,9 +913,11 @@ void BC_BossIntro()
 				DrawBoss();
 			} else {
 				DrawBoss();
-				if ((final_boss_dlg == 0) && (current_boss == 3)) {
+				if (final_boss_dlg == 0) {
 					boss_dlg = 1;
-					final_boss_dlg = 1;
+					if (current_boss == 3) {
+						final_boss_dlg = 1;
+					}
 				} else {
 					boss_fight_mode = 2;
 				}
