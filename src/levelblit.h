@@ -45,6 +45,7 @@ extern int magic_circuit;
 extern int circuit_size;
 extern int circuit_range;
 void DrawBorder(int len, int lines);
+void DrawBorderAtCustomHeight(int len, int lines, int height);
 void DrawCircle(int x, int y, int r, unsigned char c);
 void DrawCircleEx(int x, int y, int r, int r2, unsigned char c);
 void DrawRect(int x, int y, int w, int h, unsigned char c);

@@ -1145,10 +1145,9 @@ int DungeonPlay(char *fname)
 		}
 		
 		if (voluntary_exit) {
-			DrawRect(SCREEN_W/8 - 8, (SCREEN_H - 8) / 2 - 32, -(SCREEN_W/8 - 8) + SCREEN_W - SCREEN_W/8 + 8, 80, 128);
-			DrawRect(SCREEN_W/8, (SCREEN_H - 8) / 2 - 28, -(SCREEN_W/8) + SCREEN_W - SCREEN_W/8, 72, 64);
-			draw_text((SCREEN_W - 30 * 8) / 2, (SCREEN_H - 8) / 2 - 4, 0, "Are you sure you want to quit?", 255);
-			draw_text((SCREEN_W - 23 * 8) / 2, (SCREEN_H - 8) / 2 + 4, 0, "Press START to confirm.", 255);
+			DrawBorderAtCustomHeight(strlen("Are you sure you want to quit?"), 2, (SCREEN_H - 8) / 2 - 4);
+			draw_text((SCREEN_W - 30 * 8) / 2, (SCREEN_H - 8) / 2 - 4, 0, "Are you sure you want to quit?", t%16<8 ? 255 : 192);
+			draw_text((SCREEN_W - 23 * 8) / 2, (SCREEN_H - 8) / 2 + 4, 0, "Press START to confirm.", t%16<8 ? 255 : 192);
 		}
 
 		VideoUpdate();
@@ -1423,7 +1422,7 @@ void HandleEvents()
 						}
 						CancelVoluntaryExit();
 						break;
-					case SDLK_LSHIFT:
+					case SDLK_BACKSPACE:
 						CancelVoluntaryExit();
 						ReleaseHeldKeys();
 						ShowHelp();
@@ -2052,6 +2051,22 @@ void DrawBorder(int len, int lines)
 	DrawRect(x - 10, y - 10, w + 20, 18 + lines, 64);
 }
 
+void DrawBorderAtCustomHeight(int len, int lines, int height)
+{
+	int x = SCREEN_W/2 - len*8 / 2;
+	int y = height;
+	int w = len*8;
+
+	lines = lines * 10;
+	// Keep the border within the screen area.
+	x = (x < 20 ? 20 : x);
+	w = (w > SCREEN_W - 40 ? SCREEN_W - 40 : w);
+
+	DrawRect(x - 20, y - 20, w + 40, 38 + lines, 200);
+	DrawRect(x - 15, y - 15, w + 30, 28 + lines, 32);
+	DrawRect(x - 10, y - 10, w + 20, 18 + lines, 64);
+}
+
 void DrawRect(int x, int y, int w, int h, unsigned char c)
 {
 	SDL_Rect r;
@@ -2570,6 +2585,11 @@ void SpecialTile(int x, int y)
 	char message[100] = "";
 	char message2[100] = "";
 
+	// Ignore special tiles on the exit dialog.
+	if (voluntary_exit) {
+		return;
+	}
+
 	tile = Get(x, y);
 	switch (tile) {
 		case 25:
@@ -2643,7 +2663,7 @@ void SpecialTile(int x, int y)
 		default:
 			if (first_game) {
 				if (otext < 60) {
-					sprintf(message, "Press X to read the help file");
+					sprintf(message, "Press R to read the help file");
 					otext++;
 				}
 			}

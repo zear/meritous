@@ -259,7 +259,7 @@ int MoveCursor()
 				key_right = 0;
 				return 0;
 			}
-			if (ev.key.keysym.sym == SDLK_TAB) {
+			if (ev.key.keysym.sym == SDLK_BACKSPACE) {
 				key_delay = 0;
 				key_up = 0;
 				key_down = 0;
