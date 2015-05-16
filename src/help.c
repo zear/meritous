@@ -222,7 +222,7 @@ int MoveCursor()
 {
 	SDL_Event ev;
 	static int key_delay = 0;
-	static int key_up = 0, key_down = 0;
+	static int key_up = 0, key_down = 0, key_left = 0, key_right = 0;
 
 	if (key_delay > 0) key_delay--;
 
@@ -239,19 +239,35 @@ int MoveCursor()
 				key_delay = 10;
 				if (my_cursor > (my_sec == 0 ? 8 : 2)) my_cursor--;
 			}
+			if (ev.key.keysym.sym == SDLK_LEFT) {
+				key_left = 1;
+				key_delay = 10;
+				my_cursor-=10;
+				if (my_cursor <= (my_sec == 0 ? 8 : 2)) my_cursor = (my_sec == 0 ? 8 : 2);
+			}
+			if (ev.key.keysym.sym == SDLK_RIGHT) {
+				key_right = 1;
+				key_delay = 10;
+				my_cursor+=10;
+				if (my_cursor >= hlp->s[my_sec]->lines-1) my_cursor = hlp->s[my_sec]->lines-1;
+			}
 			if (ev.key.keysym.sym == SDLK_ESCAPE) {
 				key_delay = 0;
 				key_up = 0;
 				key_down = 0;
+				key_left = 0;
+				key_right = 0;
 				return 0;
 			}
-			if (ev.key.keysym.sym == SDLK_h) {
+			if (ev.key.keysym.sym == SDLK_TAB) {
 				key_delay = 0;
 				key_up = 0;
 				key_down = 0;
+				key_left = 0;
+				key_right = 0;
 				return 0;
 			}
-			if ((ev.key.keysym.sym == SDLK_SPACE) || (ev.key.keysym.sym == SDLK_RETURN))
+			if ((ev.key.keysym.sym == SDLK_LCTRL) || (ev.key.keysym.sym == SDLK_RETURN))
 				my_link = 1;
 			}
 
@@ -262,11 +278,19 @@ int MoveCursor()
 			if (ev.key.keysym.sym == SDLK_UP) {
 				key_up = 0;
 			}
+			if (ev.key.keysym.sym == SDLK_LEFT) {
+				key_left = 0;
+			}
+			if (ev.key.keysym.sym == SDLK_RIGHT) {
+				key_right = 0;
+			}
 		}
 		if (ev.type == SDL_QUIT) {
 			key_delay = 0;
 			key_up = 0;
 			key_down = 0;
+			key_left = 0;
+			key_right = 0;
 			return 0;
 		}
 	}
@@ -277,6 +301,14 @@ int MoveCursor()
 		}
 		if (key_down == 1) {
 			if (my_cursor < hlp->s[my_sec]->lines-1) my_cursor++;
+		}
+		if (key_left == 1) {
+			my_cursor-=10;
+			if (my_cursor <= (my_sec == 0 ? 8 : 2)) my_cursor = (my_sec == 0 ? 8 : 2);
+		}
+		if (key_right == 1) {
+			my_cursor+=10;
+			if (my_cursor >= hlp->s[my_sec]->lines-1) my_cursor = hlp->s[my_sec]->lines-1;
 		}
 	}
 
