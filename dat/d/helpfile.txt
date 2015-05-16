@@ -371,47 +371,8 @@ Wervyn
 
 GCW Zero port:
 Zear
+
 With additional patches by:
 Nebuleon & David Knight
-
-Music:
-"Ambient Light"
-Vogue of Triton
-
-"Battle of Ragnarok"
-Frostbite
-
-"Dragon Cave"
-TICAZ
-
-cavern.xm
-Unknown
-
-"Caverns Boss"
-Alexis Janson
-
-"Forest Boss"
-Alexis Janson
-
-"Catacombs Boss"
-Alexis Janson
-
-"Fear 2"
-Mick Rippon
-
-"The Final Battle"
-Goose/CéDA & iNVASiON
-
-"Ice Frontier"
-Skaven/FC
-
-"KnarkLoader 1.0"
-Rapacious
-
-"RPG-Battle"
-Cyn
-
-"Metallic Forest"
-Joseph Fox
 
 ?default?Return to top
