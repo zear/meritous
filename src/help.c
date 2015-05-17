@@ -167,11 +167,11 @@ void DisplayHelp()
 	// 70x40 display
 	current_sec = hlp->s[my_sec];
 
-	my_line = my_cursor - 18;
+	my_line = my_cursor - 22;
 	if (my_line < 0) my_line = 0;
 	if (my_line >= (current_sec->lines)) my_line = current_sec->lines - 1;
 	for (i = 0; i < 2; i++) {
-		draw_text(23+i - offset_x, 40+(my_cursor - my_line)*10 - offset_y, 0, "->", 255);
+		draw_text(23+i - offset_x, (my_cursor - my_line)*10 - offset_y, 0, "->", 255);
 	}
 
 	for (i = 2; i < 23; i++) {
@@ -185,11 +185,11 @@ void DisplayHelp()
 						draw_text((SCREEN_W-strlen(ltext+1)*8)/2, i*10 - offset_y, 0, ltext+1, 255);
 						break;
 					case '?':
-						if (i+4 < 23) {
+						if (i < 23) {
 							strncpy(c_ident, ltext+1, strchr(ltext+1, '?')-ltext-1);
 							c_ident[strchr(ltext+1, '?')-ltext-1] = 0;
 
-							draw_text(40 - offset_x, 40+i*10 - offset_y, 0, strchr(ltext+1, '?')+1, my_cursor == line_num ? 200+(tick%16)*3 : 150);
+							draw_text(40 - offset_x, i*10 - offset_y, 0, strchr(ltext+1, '?')+1, my_cursor == line_num ? 200+(tick%16)*3 : 150);
 							if ((my_link == 1)&&(my_cursor == line_num)) {
 								follow_link = 1;
 								strcpy(linkfollow, c_ident);
@@ -210,7 +210,7 @@ void DisplayHelp()
 		for (i = 0; i < hlp->sections; i++) {
 			if (strcmp(linkfollow, hlp->s[i]->identifier) == 0) {
 				my_sec = i;
-				my_cursor = (my_sec == 0 ? 8 : 2);
+				my_cursor = (my_sec == 0 ? 11 : 6);
 				break;
 			}
 		}
@@ -237,13 +237,13 @@ int MoveCursor()
 			if (ev.key.keysym.sym == SDLK_UP) {
 				key_up = 1;
 				key_delay = 10;
-				if (my_cursor > (my_sec == 0 ? 8 : 2)) my_cursor--;
+				if (my_cursor > (my_sec == 0 ? 11 : 6)) my_cursor--;
 			}
 			if (ev.key.keysym.sym == SDLK_LEFT) {
 				key_left = 1;
 				key_delay = 10;
 				my_cursor-=10;
-				if (my_cursor <= (my_sec == 0 ? 8 : 2)) my_cursor = (my_sec == 0 ? 8 : 2);
+				if (my_cursor <= (my_sec == 0 ? 11 : 6)) my_cursor = (my_sec == 0 ? 11 : 6);
 			}
 			if (ev.key.keysym.sym == SDLK_RIGHT) {
 				key_right = 1;
@@ -297,14 +297,14 @@ int MoveCursor()
 
 	if (key_delay == 0) {
 		if (key_up == 1) {
-			if (my_cursor > (my_sec == 0 ? 8 : 2)) my_cursor--;
+			if (my_cursor > (my_sec == 0 ? 11 : 6)) my_cursor--;
 		}
 		if (key_down == 1) {
 			if (my_cursor < hlp->s[my_sec]->lines-1) my_cursor++;
 		}
 		if (key_left == 1) {
 			my_cursor-=10;
-			if (my_cursor <= (my_sec == 0 ? 8 : 2)) my_cursor = (my_sec == 0 ? 8 : 2);
+			if (my_cursor <= (my_sec == 0 ? 11 : 6)) my_cursor = (my_sec == 0 ? 11 : 6);
 		}
 		if (key_right == 1) {
 			my_cursor+=10;
@@ -323,7 +323,7 @@ void ShowHelp()
 	}
 	my_line = 0;
 	my_sec = 0;
-	my_cursor = 8;
+	my_cursor = 11;
 	my_link = 0;
 
 	while (in_help)
