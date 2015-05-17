@@ -156,7 +156,7 @@ some points of interest to look out for.
 !----------------------------------
 
 Trigger tiles are special tiles that cover the floor of the dungeon,
-and can be activated by standing on top of them and pressing Enter.
+and can be activated by standing on top of them and pressing START.
 
 !Checkpoint tiles
 
@@ -166,7 +166,7 @@ natural vitality, will restore your being if you perish within the
 Dome.
 
 The process can also be used to warp yourself between tiles with no
-cost, by pressing Enter while on one of them.
+cost, by pressing START while on one of them.
 
 !PSI Enhancement tiles
 
@@ -191,7 +191,7 @@ at the moment until more shadow creatures are destroyed.
 
 These tiles use their own supply of PSI to record your current
 state, allowing you to come back to the Dome if you decide to leave
-for a while. They do this upon activation with the Enter key.
+for a while. They do this upon activation with the START button.
 
 ?circuit?Your PSI Circuit and You
 
@@ -242,7 +242,7 @@ defence.
 
 !Offence
 
-By holding down the spacebar, you can charge your offensive PSI
+By holding down the A button, you can charge your offensive PSI
 circuit and unleash it on surrounding foes. Creatures made up of PSI
 that are hit by this force will crystallise and break down into PSI
 crystals that can be collected.
@@ -271,7 +271,7 @@ your offensive PSI circuit charges and recovers respectively. In
 addition, upgrading these values also increases the maximum charge
 possible for your circuit, necessary for destroying the most powerful
 enemies. These can be upgraded by standing on the necessary enhance
-tiles and pressing Enter when you have sufficient PSI crystals.
+tiles and pressing START when you have sufficient PSI crystals.
 
 !Defence
 
@@ -302,7 +302,7 @@ tile.
 Your PSI also enhances your ability to recall facts and visualise them
 accurately. As a result of this, you will remember the layout of the
 portions of the Dome you have explored so far, and can visualise this
-information by pressing Tab. This will show a map that you can scroll
+information by pressing L. This will show a map that you can scroll
 around, and can be very useful for finding your way around the Dome.
 
 !PSI vitality
