@@ -58,8 +58,7 @@ void InitHelp()
 	hlp->sections = 0;
 
 	fp = fopen("dat/d/helpfile.txt", "r");
-	while (!feof(fp)) {
-		fgets(linebuf, 79, fp);
+	while (fgets(linebuf, 79, fp)) {
 		if (linebuf[strlen(linebuf)-1] == '\n')
 			linebuf[strlen(linebuf)-1] = 0;
 
