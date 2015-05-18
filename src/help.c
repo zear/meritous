@@ -48,6 +48,7 @@ int my_line;
 int my_sec;
 int my_cursor;
 int my_link;
+int return_top;
 void InitHelp()
 {
 	FILE *fp;
@@ -205,6 +206,12 @@ void DisplayHelp()
 	tick++;
 	SDL_Flip(screen);
 
+	if (return_top)
+	{
+		follow_link = 1;
+		strcpy(linkfollow, "default");
+	}
+
 	if (follow_link) {
 		for (i = 0; i < hlp->sections; i++) {
 			if (strcmp(linkfollow, hlp->s[i]->identifier) == 0) {
@@ -214,6 +221,7 @@ void DisplayHelp()
 			}
 		}
 		my_link = 0;
+		return_top = 0;
 	}
 }
 
@@ -226,6 +234,7 @@ int MoveCursor()
 	if (key_delay > 0) key_delay--;
 
 	my_link = 0;
+	return_top = 0;
 	while (SDL_PollEvent(&ev)) {
 		if (ev.type == SDL_KEYDOWN) {
 			if (ev.key.keysym.sym == SDLK_DOWN) {
@@ -266,9 +275,13 @@ int MoveCursor()
 				key_right = 0;
 				return 0;
 			}
-			if ((ev.key.keysym.sym == SDLK_LCTRL) || (ev.key.keysym.sym == SDLK_RETURN))
+			if ((ev.key.keysym.sym == SDLK_LCTRL) || (ev.key.keysym.sym == SDLK_RETURN)) {
 				my_link = 1;
 			}
+			if (ev.key.keysym.sym == SDLK_LALT) {
+				return_top = 1;
+			}
+		}
 
 		if (ev.type == SDL_KEYUP) {
 			if (ev.key.keysym.sym == SDLK_DOWN) {
@@ -324,6 +337,7 @@ void ShowHelp()
 	my_sec = 0;
 	my_cursor = 11;
 	my_link = 0;
+	return_top = 0;
 
 	while (in_help)
 	{
